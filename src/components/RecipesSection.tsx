@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import instaFamily from '../assets/insta_family.png';
-import aboutBreakfast from '../assets/about_breakfast.png';
-import instaPancakes from '../assets/insta_pancakes.png';
+import gulkhandJam from '../assets/gulkhand_jam.png';
+import roseNectar from '../assets/rose_nectar.png';
 import hibiscusNectar from '../assets/hibiscus_nectar.png';
 import aavaramThokku from '../assets/aavaram_thokku.png';
 
@@ -11,8 +11,8 @@ interface RecipesSectionProps {
 
 export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
   const recipes = [
-    { name: 'Gulkhand Sweet Rolls', image: aboutBreakfast },
-    { name: 'Nectar Pancakes', image: instaPancakes },
+    { name: 'Gulkhand Sweet Rolls', image: gulkhandJam },
+    { name: 'Nectar Pancakes', image: roseNectar },
     { name: 'Hibiscus Milkshake', image: hibiscusNectar },
     { name: 'Aavaram Dosa', image: aavaramThokku },
   ];
