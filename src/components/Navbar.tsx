@@ -171,7 +171,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 onClick={() => onNavigate('enquiry')}
                 className={`nav-link ${currentPage === 'enquiry' ? 'active' : ''}`}
               >
-                ENQUIRY
+                RESELLER/DISTRIBUTOR
               </button>
             </nav>
           </div>
@@ -399,7 +399,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   }`}
                   style={{ textAlign: 'left' }}
                 >
-                  <span>ENQUIRY</span>
+                  <span>RESELLER/DISTRIBUTOR</span>
                 </button>
               </nav>
 
