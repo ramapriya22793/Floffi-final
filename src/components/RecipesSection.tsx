@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import instaFamily from '../assets/insta_family.png';
-import gulkhandJam from '../assets/gulkhand_jam.png';
+import aavaramJam from '../assets/aavaram_jam.png';
 import roseNectar from '../assets/rose_nectar.png';
 import hibiscusNectar from '../assets/hibiscus_nectar.png';
 import aavaramThokku from '../assets/aavaram_thokku.png';
@@ -11,7 +11,7 @@ interface RecipesSectionProps {
 
 export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
   const recipes = [
-    { name: 'Gulkhand Jam', image: gulkhandJam },
+    { name: 'Aavaram Jam', image: aavaramJam },
     { name: 'Rose Nectar', image: roseNectar },
     { name: 'Hibiscus Nectar', image: hibiscusNectar },
     { name: 'Aavaram Thokku', image: aavaramThokku },
