@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import recipesBg from '../assets/new_banner_latest.jpeg';
+import instaFamily from '../assets/insta_family.png';
 import gulkhandJam from '../assets/gulkhand_jam.png';
 import roseNectar from '../assets/rose_nectar.png';
 import hibiscusNectar from '../assets/hibiscus_nectar.png';
@@ -30,8 +30,8 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
       <div style={{ position: 'relative', width: '100%', minHeight: '500px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '60px 16px' }}>
         {/* Background Image */}
         <img 
-          src={recipesBg} 
-          alt="Floffi Products" 
+          src={instaFamily} 
+          alt="Floffi Family Breakfast" 
           style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', opacity: 0.8 }}
         />
         
