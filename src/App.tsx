@@ -5,9 +5,10 @@ import HomePage from './components/HomePage';
 import StoryPage from './components/StoryPage';
 import ProductsPage from './components/ProductsPage';
 import ProductDetailsPage from './components/ProductDetailsPage';
+import EnquirySection from './components/EnquirySection';
 import './App.css';
 
-export type PageRoute = 'home' | 'story' | 'products' | 'product-details';
+export type PageRoute = 'home' | 'story' | 'products' | 'product-details' | 'enquiry';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<PageRoute>('home');
@@ -39,6 +40,8 @@ function App() {
         return <ProductsPage selectedProductId={selectedProductId} onNavigate={handleNavigate} />;
       case 'product-details':
         return <ProductDetailsPage productId={selectedProductId} onNavigate={handleNavigate} />;
+      case 'enquiry':
+        return <div className="pt-24"><EnquirySection /></div>;
       default:
         return <HomePage onNavigate={handleNavigate} />;
     }

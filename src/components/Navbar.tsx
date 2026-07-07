@@ -5,7 +5,7 @@ import floffiLogo from '../assets/floffi_logo.png';
 
 interface NavbarProps {
   currentPage: string;
-  onNavigate: (page: 'home' | 'story' | 'products', productId?: string) => void;
+  onNavigate: (page: 'home' | 'story' | 'products' | 'enquiry', productId?: string) => void;
 }
 
 export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
@@ -164,6 +164,14 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 className={`nav-link ${currentPage === 'story' ? 'active' : ''}`}
               >
                 OUR STORY
+              </button>
+
+              {/* Enquiry Link */}
+              <button
+                onClick={() => onNavigate('enquiry')}
+                className={`nav-link ${currentPage === 'enquiry' ? 'active' : ''}`}
+              >
+                ENQUIRY
               </button>
             </nav>
           </div>
@@ -378,6 +386,20 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   style={{ textAlign: 'left' }}
                 >
                   <span>OUR STORY</span>
+                </button>
+
+                {/* Enquiry Link */}
+                <button
+                  onClick={() => {
+                    onNavigate('enquiry');
+                    setIsOpen(false);
+                  }}
+                  className={`nav-link text-base flex justify-start w-full py-1 ${
+                    currentPage === 'enquiry' ? 'active' : ''
+                  }`}
+                  style={{ textAlign: 'left' }}
+                >
+                  <span>ENQUIRY</span>
                 </button>
               </nav>
 
