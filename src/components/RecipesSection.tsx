@@ -47,19 +47,16 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 style={{ backgroundColor: '#fff', overflow: 'hidden' }}
               >
-                {/* Gingham Background & Circle Image */}
+                {/* Product Image Box */}
                 <div style={{ 
                   height: '250px', 
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center',
-                  backgroundColor: '#fff',
-                  /* Orange gingham pattern */
-                  backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(255, 140, 0, 0.15) 10px, rgba(255, 140, 0, 0.15) 20px), repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(255, 140, 0, 0.15) 10px, rgba(255, 140, 0, 0.15) 20px)'
+                  backgroundColor: '#F9F7F4',
+                  padding: '24px'
                 }}>
-                  <div style={{ width: '180px', height: '180px', borderRadius: '50%', border: '8px solid #fff', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                    <img src={recipe.image} alt={recipe.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </div>
+                  <img src={recipe.image} alt={recipe.name} style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.1))' }} />
                 </div>
                 
                 {/* Orange Title Bar */}
