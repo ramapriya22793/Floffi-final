@@ -11,10 +11,10 @@ interface RecipesSectionProps {
 
 export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
   const recipes = [
-    { name: 'Gulkhand Sweet Rolls', image: gulkhandJam },
-    { name: 'Nectar Pancakes', image: roseNectar },
-    { name: 'Hibiscus Milkshake', image: hibiscusNectar },
-    { name: 'Aavaram Dosa', image: aavaramThokku },
+    { name: 'Gulkhand Jam', image: gulkhandJam },
+    { name: 'Rose Nectar', image: roseNectar },
+    { name: 'Hibiscus Nectar', image: hibiscusNectar },
+    { name: 'Aavaram Thokku', image: aavaramThokku },
   ];
 
   return (
