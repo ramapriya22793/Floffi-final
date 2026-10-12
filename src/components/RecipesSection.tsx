@@ -6,24 +6,27 @@ import hibiscusNectar from '../assets/hibiscus_nectar.png';
 import aavaramThokku from '../assets/aavaram_thokku.png';
 
 interface RecipesSectionProps {
-  onNavigate: (page: any) => void;
+  onNavigate: (page: any, productId?: string) => void;
 }
 
 export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
-  const recipes = [
-    { name: 'Aavaram Jam', image: aavaramJam },
-    { name: 'Rose Nectar', image: roseNectar },
-    { name: 'Hibiscus Nectar', image: hibiscusNectar },
-    { name: 'Aavaram Thokku', image: aavaramThokku },
+  const products = [
+    { id: 'aavaram-jam', name: 'Aavaram Jam', image: aavaramJam },
+    { id: 'rose-nectar', name: 'Rose Nectar Spread', image: roseNectar },
+    { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', image: hibiscusNectar },
+    { id: 'aavaram-thokku', name: 'Aavaram Thokku', image: aavaramThokku },
   ];
 
   return (
-    <section className="bg-white" style={{ backgroundColor: '#fff', paddingTop: '32px', paddingBottom: '64px' }}>
+    <section id="our-products" className="bg-white" style={{ backgroundColor: '#fff', paddingTop: '40px', paddingBottom: '64px' }}>
       {/* Title */}
-      <div className="container" style={{ textAlign: 'center', marginBottom: '48px' }}>
+      <div className="container" style={{ textAlign: 'center', marginBottom: '40px' }}>
         <h2 className="font-heading font-extrabold" style={{ fontSize: '2.5rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--earthy-brown)' }}>
-          Recipes
+          Our Products
         </h2>
+        <p style={{ color: 'var(--earthy-light, #666)', fontSize: '1rem', marginTop: '8px' }}>
+          Pure, naturally crafted floral spreads & traditional condiments
+        </p>
       </div>
 
       {/* Image Banner with Overlay Cards */}
@@ -38,14 +41,17 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
         {/* Content Overlay */}
         <div style={{ position: 'relative', zIndex: 10, width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2px', backgroundColor: '#fff', padding: '2px' }}>
-            {recipes.map((recipe, idx) => (
+            {products.map((product, idx) => (
               <motion.div 
-                key={idx}
+                key={product.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                style={{ backgroundColor: '#fff', overflow: 'hidden' }}
+                whileHover={{ y: -4 }}
+                onClick={() => onNavigate('product-details', product.id)}
+                style={{ backgroundColor: '#fff', overflow: 'hidden', cursor: 'pointer', transition: 'box-shadow 0.3s ease' }}
+                className="group hover:shadow-2xl"
               >
                 {/* Gingham Background & Circle Image */}
                 <div style={{ 
@@ -57,16 +63,24 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
                   /* Orange gingham pattern */
                   backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(255, 140, 0, 0.15) 10px, rgba(255, 140, 0, 0.15) 20px), repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(255, 140, 0, 0.15) 10px, rgba(255, 140, 0, 0.15) 20px)'
                 }}>
-                  <div style={{ width: '180px', height: '180px', borderRadius: '50%', border: '8px solid #fff', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                    <img src={recipe.image} alt={recipe.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ width: '180px', height: '180px', borderRadius: '50%', border: '8px solid #fff', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.3s ease' }}>
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                      className="group-hover:scale-110 transition-transform duration-300"
+                    />
                   </div>
                 </div>
                 
                 {/* Orange Title Bar */}
-                <div style={{ backgroundColor: '#FF8C00', color: '#fff', textAlign: 'center', padding: '20px', minHeight: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTop: '2px solid rgba(255,255,255,0.2)' }}>
-                  <h4 style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '1rem', margin: 0 }}>
-                    {recipe.name}
+                <div style={{ backgroundColor: '#FF8C00', color: '#fff', textAlign: 'center', padding: '16px 12px', minHeight: '80px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderTop: '2px solid rgba(255,255,255,0.2)' }}>
+                  <h4 style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '1.05rem', margin: 0 }}>
+                    {product.name}
                   </h4>
+                  <span style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '4px', textDecoration: 'underline' }}>
+                    View Details &rarr;
+                  </span>
                 </div>
               </motion.div>
             ))}
@@ -89,11 +103,12 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
                 letterSpacing: '0.05em', 
                 padding: '16px 40px', 
                 border: 'none',
+                borderRadius: '8px',
                 cursor: 'pointer',
                 boxShadow: '0 4px 12px rgba(255, 140, 0, 0.3)'
               }}
             >
-              View All Recipes
+              View All Products
             </motion.button>
           </div>
         </div>

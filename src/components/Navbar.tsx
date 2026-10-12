@@ -150,12 +150,21 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 </AnimatePresence>
               </div>
 
-              {/* Recipes Link (Placeholder) */}
+              {/* Featured Products Link */}
               <button
-                onClick={() => onNavigate('home')}
+                onClick={() => {
+                  if (currentPage !== 'home') {
+                    onNavigate('home');
+                    setTimeout(() => {
+                      document.getElementById('our-products')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  } else {
+                    document.getElementById('our-products')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
                 className={`nav-link`}
               >
-                RECIPES
+                FEATURED
               </button>
 
               {/* Story Link */}
@@ -363,15 +372,23 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   </AnimatePresence>
                 </div>
 
-                {/* Recipes Link */}
+                {/* Featured Products Link */}
                 <button
                   onClick={() => {
                     setIsOpen(false);
+                    if (currentPage !== 'home') {
+                      onNavigate('home');
+                      setTimeout(() => {
+                        document.getElementById('our-products')?.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    } else {
+                      document.getElementById('our-products')?.scrollIntoView({ behavior: 'smooth' });
+                    }
                   }}
                   className={`nav-link text-base flex justify-start w-full py-1`}
                   style={{ textAlign: 'left' }}
                 >
-                  <span>RECIPES</span>
+                  <span>OUR PRODUCTS</span>
                 </button>
 
                 {/* About FLOFFI Link */}
