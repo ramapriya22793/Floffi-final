@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react';
-import { ShoppingBag, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, MessageCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import CheckoutModal from './CheckoutModal';
 import type { PageRoute } from '../App';
+
+import gulkhandJamImg from '../assets/gulkhand_jam.png';
+import aavaramJamImg from '../assets/aavaram_jam.png';
+import hibiscusNectarImg from '../assets/hibiscus_nectar.png';
+import roseNectarImg from '../assets/rose_nectar.png';
+import aavaramThokkuImg from '../assets/aavaram_thokku.png';
+import bananaThokkuImg from '../assets/banana_thokku.png';
+import cauliflowerThokkuImg from '../assets/cauliflower_thokku.png';
 
 interface ProductDetail {
   id: string;
@@ -19,10 +26,22 @@ interface ProductDetailsPageProps {
   onNavigate: (page: PageRoute, productId?: string) => void;
 }
 
+const DEFAULT_PRODUCTS: Record<string, ProductDetail> = {
+  'gulkhand-jam': { id: 'gulkhand-jam', name: 'Gulkhand Jam', category: 'jam', image: gulkhandJamImg, price: 200, original_price: 245 },
+  'aavaram-jam': { id: 'aavaram-jam', name: 'Aavaram Jam', category: 'jam', image: aavaramJamImg, price: 200, original_price: 245 },
+  'hibiscus-nectar': { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', category: 'nectar-spread', image: hibiscusNectarImg, price: 350, original_price: 400 },
+  'rose-nectar': { id: 'rose-nectar', name: 'Rose Nectar Spread', category: 'nectar-spread', image: roseNectarImg, price: 325, original_price: 375 },
+  'aavaram-thokku': { id: 'aavaram-thokku', name: 'Aavaram Thokku', category: 'thokku', image: aavaramThokkuImg, price: 230, original_price: 270 },
+  'banana-thokku': { id: 'banana-thokku', name: 'Banana Thokku', category: 'thokku', image: bananaThokkuImg, price: 230, original_price: 270 },
+  'cauliflower-thokku': { id: 'cauliflower-thokku', name: 'Cauliflower Thokku', category: 'thokku', image: cauliflowerThokkuImg, price: 230, original_price: 270 }
+};
+
 export default function ProductDetailsPage({ productId, onNavigate }: ProductDetailsPageProps) {
-  const [product, setProduct] = useState<ProductDetail | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [product, setProduct] = useState<ProductDetail | null>(() => {
+    if (productId && DEFAULT_PRODUCTS[productId]) return DEFAULT_PRODUCTS[productId];
+    return null;
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -33,18 +52,25 @@ export default function ProductDetailsPage({ productId, onNavigate }: ProductDet
         return;
       }
       
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .eq('id', productId)
-        .single();
-        
-      if (error) {
-        console.error('Error fetching product:', error);
-      } else if (data) {
-        setProduct(data);
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select('*')
+          .eq('id', productId)
+          .single();
+          
+        if (data) {
+          setProduct(data);
+        } else if (DEFAULT_PRODUCTS[productId]) {
+          setProduct(DEFAULT_PRODUCTS[productId]);
+        }
+      } catch (err) {
+        if (DEFAULT_PRODUCTS[productId]) {
+          setProduct(DEFAULT_PRODUCTS[productId]);
+        }
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
     
     fetchProduct();
@@ -52,11 +78,15 @@ export default function ProductDetailsPage({ productId, onNavigate }: ProductDet
 
   const getImageUrl = (imagePath: string) => {
     if (!imagePath) return '';
-    if (imagePath.startsWith('http') || imagePath.startsWith('/')) {
+    if (imagePath.startsWith('http') || imagePath.startsWith('/') || imagePath.startsWith('data:') || imagePath.startsWith('/src/assets/')) {
       return imagePath;
     }
-    const { data } = supabase.storage.from('Productimage').getPublicUrl(imagePath);
-    return data.publicUrl;
+    try {
+      const { data } = supabase.storage.from('Productimage').getPublicUrl(imagePath);
+      return data?.publicUrl || imagePath;
+    } catch {
+      return imagePath;
+    }
   };
 
   const getProductPrice = (product: ProductDetail) => {
@@ -83,10 +113,6 @@ export default function ProductDetailsPage({ productId, onNavigate }: ProductDet
     }
     
     return { price: 299, original: 349 };
-  };
-
-  const handlePreOrder = (prod: ProductDetail) => {
-    setIsCheckoutOpen(true);
   };
 
   const getProductDescription = (product: ProductDetail) => {
@@ -222,24 +248,20 @@ export default function ProductDetailsPage({ productId, onNavigate }: ProductDet
 
             <div className="flex gap-4">
               <button 
-                onClick={() => handlePreOrder(product)}
+                onClick={() => {
+                  const message = encodeURIComponent(`Hi Floffi, I would like to enquire about ${product?.name || 'this product'}.`);
+                  window.open(`https://wa.me/918754887774?text=${message}`, '_blank');
+                }}
                 className="btn btn-primary flex-1 flex items-center justify-center gap-2" 
                 style={{ padding: '16px', fontSize: '1.1rem', borderRadius: '16px', boxShadow: '0 8px 24px rgba(255, 140, 0, 0.3)' }}
               >
-                <ShoppingBag size={20} />
-                Pre-order
+                <MessageCircle size={20} />
+                Enquire Now
               </button>
             </div>
           </div>
         </div>
       </div>
-      <CheckoutModal 
-        isOpen={isCheckoutOpen} 
-        onClose={() => setIsCheckoutOpen(false)} 
-        product={product}
-        basePrice={product ? getProductPrice(product).price : 0}
-        productImage={product ? getImageUrl(product.image) : ''}
-      />
     </div>
   );
 }

@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import { loadRazorpayScript } from '../lib/razorpay';
-import CheckoutModal from './CheckoutModal';
 import type { PageRoute } from '../App';
 
 import instaField from '../assets/insta_field.png';
@@ -33,32 +31,93 @@ interface ProductsPageProps {
   onNavigate?: (page: any, productId?: string) => void;
 }
 
+const DEFAULT_PRODUCTS: ProductDetail[] = [
+  {
+    id: 'gulkhand-jam',
+    name: 'Gulkhand Jam',
+    category: 'jam',
+    image: gulkhandJamImg,
+    price: 200,
+    original_price: 245
+  },
+  {
+    id: 'aavaram-jam',
+    name: 'Aavaram Jam',
+    category: 'jam',
+    image: aavaramJamImg,
+    price: 200,
+    original_price: 245
+  },
+  {
+    id: 'hibiscus-nectar',
+    name: 'Hibiscus Nectar Spread',
+    category: 'nectar-spread',
+    image: hibiscusNectarImg,
+    price: 350,
+    original_price: 400
+  },
+  {
+    id: 'rose-nectar',
+    name: 'Rose Nectar Spread',
+    category: 'nectar-spread',
+    image: roseNectarImg,
+    price: 325,
+    original_price: 375
+  },
+  {
+    id: 'aavaram-thokku',
+    name: 'Aavaram Thokku',
+    category: 'thokku',
+    image: aavaramThokkuImg,
+    price: 230,
+    original_price: 270
+  },
+  {
+    id: 'banana-thokku',
+    name: 'Banana Thokku',
+    category: 'thokku',
+    image: bananaThokkuImg,
+    price: 230,
+    original_price: 270
+  },
+  {
+    id: 'cauliflower-thokku',
+    name: 'Cauliflower Thokku',
+    category: 'thokku',
+    image: cauliflowerThokkuImg,
+    price: 230,
+    original_price: 270
+  }
+];
+
 export default function ProductsPage({ selectedProductId, onNavigate }: ProductsPageProps) {
   const [activeCategories, setActiveCategories] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<string>('featured');
 
-  const [products, setProducts] = useState<ProductDetail[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<ProductDetail[]>(DEFAULT_PRODUCTS);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchProducts() {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*');
-        
-      if (error) {
-        console.error('Error fetching products:', error);
-      } else if (data) {
-        setProducts(data);
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select('*');
+          
+        if (error) {
+          console.warn('Using default products fallback:', error.message);
+        } else if (data && data.length > 0) {
+          setProducts(data);
+        }
+      } catch (err) {
+        console.warn('Using default products fallback');
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
     
     fetchProducts();
   }, []);
-
-  const [checkoutProduct, setCheckoutProduct] = useState<ProductDetail | null>(null);
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const getImageUrl = (imagePath: string) => {
     if (!imagePath) return '';
@@ -67,12 +126,6 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
     }
     const { data } = supabase.storage.from('Productimage').getPublicUrl(imagePath);
     return data.publicUrl;
-  };
-
-  const handlePreOrder = (product: ProductDetail, e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent navigating to product details
-    setCheckoutProduct(product);
-    setIsCheckoutOpen(true);
   };
 
   const getProductPrice = (product: ProductDetail) => {
@@ -151,14 +204,6 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
         />
       </div>
 
-      <CheckoutModal 
-        isOpen={isCheckoutOpen} 
-        onClose={() => setIsCheckoutOpen(false)} 
-        product={checkoutProduct}
-        basePrice={checkoutProduct ? getProductPrice(checkoutProduct).price : 0}
-        productImage={checkoutProduct ? getImageUrl(checkoutProduct.image) : ''}
-      />
-
       {/* Main E-commerce Layout */}
       <section className="section pb-24 pt-12">
         <div className="container">
@@ -231,9 +276,14 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
                           </div>
                         </div>
                         
-                        {/* Pre-order Button */}
+                        {/* View Details Button */}
                         <button 
-                          onClick={(e) => handlePreOrder(product, e)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (onNavigate) {
+                              onNavigate('product-details', product.id);
+                            }
+                          }}
                           className="btn btn-primary" 
                           style={{ 
                             marginTop: 'auto', 
@@ -250,8 +300,7 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
                             transition: 'all 0.3s ease'
                           }}
                         >
-                          <ShoppingBag size={18} />
-                          Pre-order
+                          View Details
                         </button>
                       </motion.div>
                     );

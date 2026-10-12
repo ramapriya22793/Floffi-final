@@ -298,8 +298,7 @@ export default function ProductCategories({ onNavigate }: ProductCategoriesProps
                         transition: 'all 0.3s ease'
                       }}
                     >
-                      <ShoppingBag size={14} />
-                      Pre-order
+                      View Details
                     </button>
                     <button className="text-pink-300 hover:text-hibiscus-red transition-colors p-1.5 bg-transparent border-none cursor-pointer">
                       <Heart size={18} />

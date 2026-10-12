@@ -183,7 +183,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               className="btn btn-primary"
               style={{ padding: '8px 16px', fontSize: '0.85rem', borderRadius: '8px', marginRight: '8px' }}
             >
-              PRE-ORDER
+              ENQUIRE NOW
             </button>
 
             <form onSubmit={handleSearchSubmit} className="search-form">
@@ -419,7 +419,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                     alignItems: 'center'
                   }}
                 >
-                  PRE-ORDER
+                  ENQUIRE NOW
                 </button>
               </div>
             </motion.div>

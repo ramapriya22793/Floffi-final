@@ -3,6 +3,14 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ShoppingBag } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
+import gulkhandJamImg from '../assets/gulkhand_jam.png';
+import aavaramJamImg from '../assets/aavaram_jam.png';
+import hibiscusNectarImg from '../assets/hibiscus_nectar.png';
+import roseNectarImg from '../assets/rose_nectar.png';
+import aavaramThokkuImg from '../assets/aavaram_thokku.png';
+import bananaThokkuImg from '../assets/banana_thokku.png';
+import cauliflowerThokkuImg from '../assets/cauliflower_thokku.png';
+
 interface Product {
   id: string;
   name: string;
@@ -16,9 +24,40 @@ interface ProductCarouselProps {
   onNavigate?: (page: any, productId?: string) => void;
 }
 
+const DEFAULT_CAROUSEL_PRODUCTS: Product[] = [
+  { id: 'gulkhand-jam', name: 'Gulkhand Jam', category: 'jam', image: gulkhandJamImg, price: 200, original_price: 245 },
+  { id: 'aavaram-jam', name: 'Aavaram Jam', category: 'jam', image: aavaramJamImg, price: 200, original_price: 245 },
+  { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', category: 'nectar-spread', image: hibiscusNectarImg, price: 350, original_price: 400 },
+  { id: 'rose-nectar', name: 'Rose Nectar Spread', category: 'nectar-spread', image: roseNectarImg, price: 325, original_price: 375 },
+  { id: 'aavaram-thokku', name: 'Aavaram Thokku', category: 'thokku', image: aavaramThokkuImg, price: 230, original_price: 270 },
+  { id: 'banana-thokku', name: 'Banana Thokku', category: 'thokku', image: bananaThokkuImg, price: 230, original_price: 270 },
+  { id: 'cauliflower-thokku', name: 'Cauliflower Thokku', category: 'thokku', image: cauliflowerThokkuImg, price: 230, original_price: 270 }
+];
+
+const buildDisplayList = (items: Product[]) => {
+  let display = [...items];
+  while (display.length < 10 && items.length > 0) {
+    display = [...display, ...items];
+  }
+  return display;
+};
+
 export default function ProductCarousel({ onNavigate }: ProductCarouselProps) {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>(() => buildDisplayList(DEFAULT_CAROUSEL_PRODUCTS));
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const getImageUrl = (imagePath: string) => {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http') || imagePath.startsWith('/') || imagePath.startsWith('data:') || imagePath.startsWith('/src/assets/')) {
+      return imagePath;
+    }
+    try {
+      const { data } = supabase.storage.from('Productimage').getPublicUrl(imagePath);
+      return data?.publicUrl || imagePath;
+    } catch {
+      return imagePath;
+    }
+  };
 
   const getProductPrice = (product: Product) => {
     if (product.price) {
@@ -48,14 +87,13 @@ export default function ProductCarousel({ onNavigate }: ProductCarouselProps) {
 
   useEffect(() => {
     async function fetchProducts() {
-      const { data } = await supabase.from('products').select('*');
-      if (data && data.length > 0) {
-        // Duplicate products to create a nice scrolling effect if there are too few
-        let displayProducts = [...data];
-        while (displayProducts.length < 10) {
-          displayProducts = [...displayProducts, ...data];
+      try {
+        const { data } = await supabase.from('products').select('*');
+        if (data && data.length > 0) {
+          setProducts(buildDisplayList(data));
         }
-        setProducts(displayProducts);
+      } catch (e) {
+        // Safe fallback
       }
     }
     fetchProducts();
@@ -265,7 +303,7 @@ export default function ProductCarousel({ onNavigate }: ProductCarouselProps) {
 
       <div ref={scrollRef} className="pc-track">
         {products.map((product, idx) => {
-          const imageUrl = supabase.storage.from('Productimage').getPublicUrl(product.image).data.publicUrl;
+          const imageUrl = getImageUrl(product.image);
 
           return (
             <div 
@@ -309,8 +347,14 @@ export default function ProductCarousel({ onNavigate }: ProductCarouselProps) {
                   })()}
                 </div>
                 
-                {/* Pre-order Button */}
+                {/* View Details Button */}
                 <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onNavigate) {
+                      onNavigate('product-details', product.id);
+                    }
+                  }}
                   className="btn btn-primary"
                   style={{ 
                     marginTop: 'auto', 
@@ -327,8 +371,7 @@ export default function ProductCarousel({ onNavigate }: ProductCarouselProps) {
                     transition: 'all 0.3s ease'
                   }}
                 >
-                  <ShoppingBag size={18} />
-                  Pre-order
+                  View Details
                 </button>
               </div>
             </div>

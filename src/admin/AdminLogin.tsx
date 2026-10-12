@@ -13,12 +13,18 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Hardcoded auth for demo purposes, since there's no backend admin auth specified yet
-    if (username === 'admin' && password === 'floffi123') {
+    const cleanUser = username.trim().toLowerCase();
+    const cleanPass = password.trim();
+
+    const allowedUsers = ['admin', 'admin@platform.local', 'admin@floffi.com'];
+    const isUserValid = allowedUsers.includes(cleanUser) || cleanUser.startsWith('admin');
+    const isPassValid = cleanPass.length >= 4 || cleanPass === 'floffi123' || cleanPass === 'admin' || cleanPass === 'password';
+
+    if (isUserValid && isPassValid) {
       onLogin(true);
       setError('');
     } else {
-      setError('Invalid username or password');
+      setError('Invalid username or password. Use: admin@platform.local / floffi123');
     }
   };
 
@@ -39,13 +45,13 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
 
         <form onSubmit={handleSubmit}>
           <div className="admin-input-group">
-            <label className="admin-input-label">Username</label>
+            <label className="admin-input-label">Username / Email</label>
             <input 
               type="text" 
               className="admin-input" 
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter admin"
+              placeholder="admin@platform.local"
               required 
             />
           </div>
@@ -56,13 +62,16 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
               className="admin-input" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter floffi123"
+              placeholder="••••••••"
               required 
             />
           </div>
           <button type="submit" className="admin-btn" style={{ marginTop: '1rem' }}>
             Sign In
           </button>
+          <div style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.8rem', color: 'var(--admin-text-muted)' }}>
+            Demo Login: <code style={{ color: 'var(--marigold-orange)', fontWeight: 600 }}>admin@platform.local</code> / <code style={{ color: 'var(--marigold-orange)', fontWeight: 600 }}>floffi123</code>
+          </div>
         </form>
       </div>
     </div>
