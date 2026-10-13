@@ -7,6 +7,9 @@ export default function EnquirySection() {
     name: '',
     email: '',
     phone: '',
+    country: '',
+    state: '',
+    district: '',
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -18,7 +21,7 @@ export default function EnquirySection() {
     // Construct email parameters to floffiinfo@gmail.com
     const subject = encodeURIComponent(`New Reseller/Distributor Enquiry from ${formData.name}`);
     const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'Not provided'}\n\nMessage:\n${formData.message}`
+      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'Not provided'}\nCountry: ${formData.country || 'Not provided'}\nState: ${formData.state || 'Not provided'}\nDistrict: ${formData.district || 'Not provided'}\n\nMessage:\n${formData.message}`
     );
     
     // Navigate to email client with destination floffiinfo@gmail.com
@@ -27,7 +30,7 @@ export default function EnquirySection() {
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', country: '', state: '', district: '', message: '' });
     }, 5000);
   };
 
@@ -349,18 +352,62 @@ export default function EnquirySection() {
               </div>
             </div>
 
-            <div className="input-group">
-              <input 
-                type="tel" 
-                name="phone" 
-                id="phone"
-                className="modern-input" 
-                placeholder=" " 
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="phone" className="modern-label">Phone Number</label>
+            <div className="row-group">
+              <div className="input-group">
+                <input 
+                  type="tel" 
+                  name="phone" 
+                  id="phone"
+                  className="modern-input" 
+                  placeholder=" " 
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="phone" className="modern-label">Phone Number</label>
+              </div>
+              <div className="input-group">
+                <input 
+                  type="text" 
+                  name="country" 
+                  id="country"
+                  className="modern-input" 
+                  placeholder=" " 
+                  value={formData.country}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="country" className="modern-label">Country</label>
+              </div>
+            </div>
+
+            <div className="row-group">
+              <div className="input-group">
+                <input 
+                  type="text" 
+                  name="state" 
+                  id="state"
+                  className="modern-input" 
+                  placeholder=" " 
+                  value={formData.state}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="state" className="modern-label">State</label>
+              </div>
+              <div className="input-group">
+                <input 
+                  type="text" 
+                  name="district" 
+                  id="district"
+                  className="modern-input" 
+                  placeholder=" " 
+                  value={formData.district}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="district" className="modern-label">District</label>
+              </div>
             </div>
 
             <div className="input-group" style={{ marginTop: '40px' }}>

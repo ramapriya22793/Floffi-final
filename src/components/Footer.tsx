@@ -146,7 +146,7 @@ export default function Footer({ onNavigate }: FooterProps) {
              <img src={floffiLogo} alt="Icon" style={{ height: '20px' }} />
           </div>
           <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.9)', fontWeight: '500' }}>
-            &copy; {new Date().getFullYear()} Floffi Foods - All rights reserved.
+            &copy; Paidhu Ethical Foods - All rights reserved.
           </p>
         </div>
 
