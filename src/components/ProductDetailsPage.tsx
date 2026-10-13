@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, MessageCircle } from 'lucide-react';
+import { ArrowLeft, Mail } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import type { PageRoute } from '../App';
 
@@ -249,13 +249,16 @@ export default function ProductDetailsPage({ productId, onNavigate }: ProductDet
             <div className="flex gap-4">
               <button 
                 onClick={() => {
-                  const message = encodeURIComponent(`Hi Floffi, I would like to enquire about ${product?.name || 'this product'}.`);
-                  window.open(`https://wa.me/918754887774?text=${message}`, '_blank');
+                  const subject = encodeURIComponent(`Product Enquiry: ${product?.name || 'Floffi Product'}`);
+                  const body = encodeURIComponent(
+                    `Hi Floffi Team,\n\nI would like to enquire about ${product?.name || 'this product'}.\n\nPlease share more details, pricing, and availability.\n\nThank you!`
+                  );
+                  window.location.href = `mailto:floffiinfo@gmail.com?subject=${subject}&body=${body}`;
                 }}
                 className="btn btn-primary flex-1 flex items-center justify-center gap-2" 
                 style={{ padding: '16px', fontSize: '1.1rem', borderRadius: '16px', boxShadow: '0 8px 24px rgba(255, 140, 0, 0.3)' }}
               >
-                <MessageCircle size={20} />
+                <Mail size={20} />
                 Enquire Now
               </button>
             </div>

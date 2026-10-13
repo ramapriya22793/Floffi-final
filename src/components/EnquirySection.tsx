@@ -15,12 +15,14 @@ export default function EnquirySection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Construct the WhatsApp message
-    const phoneNumber = "918754887774"; // Adding country code (assuming India based on the number style, but just the number works too)
-    const textMessage = `*New Enquiry from Floffi Website!*%0a%0a*Name:* ${formData.name}%0a*Email:* ${formData.email}%0a*Phone:* ${formData.phone || 'Not provided'}%0a%0a*Message:*%0a${formData.message}`;
+    // Construct email parameters to floffiinfo@gmail.com
+    const subject = encodeURIComponent(`New Reseller/Distributor Enquiry from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'Not provided'}\n\nMessage:\n${formData.message}`
+    );
     
-    // Open WhatsApp in a new tab
-    window.open(`https://wa.me/${phoneNumber}?text=${textMessage}`, '_blank');
+    // Navigate to email client with destination floffiinfo@gmail.com
+    window.location.href = `mailto:floffiinfo@gmail.com?subject=${subject}&body=${body}`;
 
     setIsSubmitted(true);
     setTimeout(() => {
@@ -285,12 +287,16 @@ export default function EnquirySection() {
           </div>
           
           <div className="contact-methods">
-            <div className="contact-method">
+            <a 
+              href="mailto:floffiinfo@gmail.com" 
+              className="contact-method"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
               <div className="contact-icon-box">
                 <Mail size={20} color="#E65100" />
               </div>
-              <span className="contact-detail">hello@floffi.com</span>
-            </div>
+              <span className="contact-detail">floffiinfo@gmail.com</span>
+            </a>
             <div className="contact-method">
               <div className="contact-icon-box">
                 <Phone size={20} color="#E65100" />

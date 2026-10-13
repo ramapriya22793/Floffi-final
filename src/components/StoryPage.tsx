@@ -60,18 +60,39 @@ export default function StoryPage() {
             className="max-w-3xl mx-auto space-y-8 mb-20"
           >
             <h2 className="font-heading font-extrabold text-3xl text-earthy-brown text-center leading-tight">
-              Pure Flower Delicacies for Everyday Homes
+              About Us
             </h2>
             <div className="text-sm md:text-base text-earthy-light leading-relaxed space-y-6 text-left">
               <p>
                 Floffi is a modern food brand creating naturally crafted floral-based jams, spreads, sauces, and chutneys for everyday households. Built with the belief that healthy and flavorful food should be accessible to everyone, Floffi focuses on bringing unique flower-inspired ingredients into daily meals in a simple and affordable way.
               </p>
               <p>
-                Our products are made using natural ingredients without artificial colors or artificial preservatives, delivering authentic taste with a fresh and wholesome experience. From breakfast spreads to snack pairings and everyday cooking, Floffi products are designed to fit naturally into modern lifestyles.
+                Our products are made using natural ingredients without artificial colors or artificial preservatives, delivering authentic taste with a fresh and wholesome experience. From breakfast spreads to snack pairings and everyday cooking, Flowfi products are designed to fit naturally into modern lifestyles.
               </p>
               <p>
-                With a focus on economical consumers, Floffi makes floral-based foods a regular part of every kitchen through supermarkets, hypermarkets, and local stores.
+                With a focus economical consumers, floral-based foods a regular part of every kitchen through supermarkets, hypermarkets, and local stores.
               </p>
+            </div>
+
+            {/* Mission & Vision Statements */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-[rgba(62,39,35,0.1)] text-left">
+              <div className="p-6 bg-cream-dark rounded-2xl border border-[rgba(62,39,35,0.08)]">
+                <h3 className="font-heading font-bold text-lg text-hibiscus-red mb-3 uppercase tracking-wider" style={{ color: 'var(--hibiscus-red)' }}>
+                  Mission Statement
+                </h3>
+                <p className="text-sm text-earthy-light leading-relaxed">
+                  To make natural floral-based foods a part of everyday life by creating healthy, flavorful, and affordable jams, spreads, sauces, and chutneys without artificial colors or preservatives for the next generation of consumers.
+                </p>
+              </div>
+
+              <div className="p-6 bg-cream-dark rounded-2xl border border-[rgba(62,39,35,0.08)]">
+                <h3 className="font-heading font-bold text-lg text-hibiscus-red mb-3 uppercase tracking-wider" style={{ color: 'var(--hibiscus-red)' }}>
+                  Vision Statement
+                </h3>
+                <p className="text-sm text-earthy-light leading-relaxed">
+                  To become a trusted household food brand by making floral-based products available across supermarkets, hypermarkets, and local stores, bringing natural and innovative flavors to every home.
+                </p>
+              </div>
             </div>
           </motion.div>
 

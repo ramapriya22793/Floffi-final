@@ -1,21 +1,74 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { supabase } from '../lib/supabase';
 import instaFamily from '../assets/insta_family.png';
 import aavaramJam from '../assets/aavaram_jam.png';
 import roseNectar from '../assets/rose_nectar.png';
 import hibiscusNectar from '../assets/hibiscus_nectar.png';
 import aavaramThokku from '../assets/aavaram_thokku.png';
+import gulkhandJam from '../assets/gulkhand_jam.png';
+import bananaThokku from '../assets/banana_thokku.png';
+import cauliflowerThokku from '../assets/cauliflower_thokku.png';
+
+interface ProductItem {
+  id: string;
+  name: string;
+  image: string;
+  category?: string;
+}
 
 interface RecipesSectionProps {
   onNavigate: (page: any, productId?: string) => void;
 }
 
+const LOCAL_FALLBACKS: Record<string, string> = {
+  'aavaram-jam': aavaramJam,
+  'rose-nectar': roseNectar,
+  'hibiscus-nectar': hibiscusNectar,
+  'aavaram-thokku': aavaramThokku,
+  'gulkhand-jam': gulkhandJam,
+  'banana-thokku': bananaThokku,
+  'cauliflower-thokku': cauliflowerThokku,
+};
+
+const DEFAULT_PRODUCTS: ProductItem[] = [
+  { id: 'aavaram-jam', name: 'Aavaram Jam', image: aavaramJam },
+  { id: 'rose-nectar', name: 'Rose Nectar Spread', image: roseNectar },
+  { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', image: hibiscusNectar },
+  { id: 'aavaram-thokku', name: 'Aavaram Thokku', image: aavaramThokku },
+];
+
 export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
-  const products = [
-    { id: 'aavaram-jam', name: 'Aavaram Jam', image: aavaramJam },
-    { id: 'rose-nectar', name: 'Rose Nectar Spread', image: roseNectar },
-    { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', image: hibiscusNectar },
-    { id: 'aavaram-thokku', name: 'Aavaram Thokku', image: aavaramThokku },
-  ];
+  const [products, setProducts] = useState<ProductItem[]>(DEFAULT_PRODUCTS);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const { data, error } = await supabase.from('products').select('*');
+        if (error) {
+          console.warn('Error fetching products from Supabase DB:', error.message);
+        } else if (data && data.length > 0) {
+          setProducts(data);
+        }
+      } catch (err) {
+        console.warn('Using default products fallback:', err);
+      }
+    }
+    fetchProducts();
+  }, []);
+
+  const getProductImageUrl = (product: ProductItem) => {
+    if (!product.image) return LOCAL_FALLBACKS[product.id] || '';
+    if (product.image.startsWith('http') || product.image.startsWith('/') || product.image.startsWith('data:')) {
+      return product.image;
+    }
+    try {
+      const { data } = supabase.storage.from('Productimage').getPublicUrl(product.image);
+      return data?.publicUrl || LOCAL_FALLBACKS[product.id] || product.image;
+    } catch {
+      return LOCAL_FALLBACKS[product.id] || product.image;
+    }
+  };
 
   return (
     <section id="our-products" className="bg-white" style={{ backgroundColor: '#fff', paddingTop: '40px', paddingBottom: '64px' }}>
@@ -65,8 +118,14 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
                 }}>
                   <div style={{ width: '180px', height: '180px', borderRadius: '50%', border: '8px solid #fff', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.3s ease' }}>
                     <img 
-                      src={product.image} 
+                      src={getProductImageUrl(product)} 
                       alt={product.name} 
+                      onError={(e) => {
+                        const fallback = LOCAL_FALLBACKS[product.id];
+                        if (fallback) {
+                          (e.target as HTMLImageElement).src = fallback;
+                        }
+                      }}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                       className="group-hover:scale-110 transition-transform duration-300"
                     />

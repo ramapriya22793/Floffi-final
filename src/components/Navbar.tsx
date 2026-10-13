@@ -188,7 +188,9 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           {/* Right: Actions (PRE-ORDER & Search) */}
           <div className="nav-right" style={{ gap: '16px' }}>
             <button
-              onClick={() => window.open('https://wa.me/918754887774', '_blank')}
+              onClick={() => {
+                window.location.href = 'mailto:floffiinfo@gmail.com?subject=Enquiry%20to%20Floffi';
+              }}
               className="btn btn-primary"
               style={{ padding: '8px 16px', fontSize: '0.85rem', borderRadius: '8px', marginRight: '8px' }}
             >
@@ -423,8 +425,8 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               <div className="mt-auto">
                 <button
                   onClick={() => {
-                    window.open('https://wa.me/918754887774', '_blank');
                     setIsOpen(false);
+                    window.location.href = 'mailto:floffiinfo@gmail.com?subject=Enquiry%20to%20Floffi';
                   }}
                   className="btn btn-primary py-3"
                   style={{ 
