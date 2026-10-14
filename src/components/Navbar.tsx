@@ -189,7 +189,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           <div className="nav-right" style={{ gap: '16px' }}>
             <button
               onClick={() => {
-                window.location.href = 'mailto:floffiinfo@gmail.com?subject=Enquiry%20to%20Floffi';
+                window.open('https://wa.me/918754787774?text=' + encodeURIComponent('Hi Floffi, I would like to make an enquiry.'), '_blank');
               }}
               className="btn btn-primary"
               style={{ padding: '8px 16px', fontSize: '0.85rem', borderRadius: '8px', marginRight: '8px' }}
@@ -426,7 +426,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 <button
                   onClick={() => {
                     setIsOpen(false);
-                    window.location.href = 'mailto:floffiinfo@gmail.com?subject=Enquiry%20to%20Floffi';
+                    window.open('https://wa.me/918754787774?text=' + encodeURIComponent('Hi Floffi, I would like to make an enquiry.'), '_blank');
                   }}
                   className="btn btn-primary py-3"
                   style={{ 

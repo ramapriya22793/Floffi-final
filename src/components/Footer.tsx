@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import floffiLogo from '../assets/floffi_logo.png';
 
 interface FooterProps {
@@ -34,7 +34,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="space-y-4 text-sm" style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px', color: 'rgba(255,255,255,0.95)' }}>
               <li><a href="#about" onClick={(e) => { e.preventDefault(); onNavigate('story'); }} style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>About Us</a></li>
               <li><a href="#shop" onClick={(e) => { e.preventDefault(); onNavigate('products'); }} style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>Shop</a></li>
-              <li><a href="mailto:floffiinfo@gmail.com" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>Contact</a></li>
+              <li><a href="https://wa.me/918754787774" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>Contact</a></li>
               <li><a href="#faqs" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>FAQs</a></li>
             </ul>
           </div>
@@ -121,6 +121,16 @@ export default function Footer({ onNavigate }: FooterProps) {
               >
                 <Mail size={18} />
                 <span>floffiinfo@gmail.com</span>
+              </a>
+              <a 
+                href="https://wa.me/918754787774" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-white/80 transition-colors"
+                style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: '#fff', fontSize: '0.95rem', fontWeight: 500 }}
+              >
+                <Phone size={18} />
+                <span>+91 87547 87774</span>
               </a>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '4px' }}>
                 <a 

@@ -18,14 +18,19 @@ export default function EnquirySection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Construct email parameters to floffiinfo@gmail.com
-    const subject = encodeURIComponent(`New Reseller/Distributor Enquiry from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'Not provided'}\nCountry: ${formData.country || 'Not provided'}\nState: ${formData.state || 'Not provided'}\nDistrict: ${formData.district || 'Not provided'}\n\nMessage:\n${formData.message}`
-    );
+    // Construct WhatsApp message to 8754787774
+    const whatsappMessage = 
+      `*New Reseller/Distributor Enquiry from Floffi Website*\n\n` +
+      `*Name:* ${formData.name}\n` +
+      `*Email:* ${formData.email}\n` +
+      `*Phone:* ${formData.phone || 'Not provided'}\n` +
+      `*Country:* ${formData.country || 'Not provided'}\n` +
+      `*State:* ${formData.state || 'Not provided'}\n` +
+      `*District:* ${formData.district || 'Not provided'}\n\n` +
+      `*Message:*\n${formData.message}`;
     
-    // Navigate to email client with destination floffiinfo@gmail.com
-    window.location.href = `mailto:floffiinfo@gmail.com?subject=${subject}&body=${body}`;
+    // Navigate to WhatsApp for 8754787774
+    window.open(`https://wa.me/918754787774?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
 
     setIsSubmitted(true);
     setTimeout(() => {
@@ -300,12 +305,18 @@ export default function EnquirySection() {
               </div>
               <span className="contact-detail">floffiinfo@gmail.com</span>
             </a>
-            <div className="contact-method">
+            <a 
+              href="https://wa.me/918754787774" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="contact-method"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
               <div className="contact-icon-box">
                 <Phone size={20} color="#E65100" />
               </div>
               <span className="contact-detail">+91 87547 87774</span>
-            </div>
+            </a>
           </div>
         </div>
 
