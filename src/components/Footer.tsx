@@ -32,8 +32,13 @@ export default function Footer({ onNavigate }: FooterProps) {
               Quick Links
             </h4>
             <ul className="space-y-4 text-sm" style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px', color: 'rgba(255,255,255,0.95)' }}>
-              <li><a href="#about" onClick={(e) => { e.preventDefault(); onNavigate('story'); }} style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>About Us</a></li>
-              <li><a href="#shop" onClick={(e) => { e.preventDefault(); onNavigate('products'); }} style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>Shop</a></li>
+              <li><a href="#about" onClick={(e) => { 
+                e.preventDefault(); 
+                onNavigate('home');
+                setTimeout(() => {
+                  document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }} style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>About Us</a></li>
               <li><a href="https://wa.me/918754787774" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>Contact</a></li>
               <li><a href="#faqs" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>FAQs</a></li>
             </ul>

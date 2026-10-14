@@ -7,7 +7,7 @@ interface OurStorySectionProps {
 
 export default function OurStorySection({ onNavigate }: OurStorySectionProps) {
   return (
-    <section style={{ position: 'relative', zIndex: 10, paddingBottom: '0px', backgroundColor: 'var(--bg-cream, #F9F7F4)' }}>
+    <section id="about" style={{ position: 'relative', zIndex: 10, paddingBottom: '0px', backgroundColor: 'var(--bg-cream, #F9F7F4)' }}>
       
       {/* Title Area with Cream Background */}
       <div style={{ paddingTop: '32px', paddingBottom: '100px', textAlign: 'center' }}>
@@ -85,32 +85,6 @@ export default function OurStorySection({ onNavigate }: OurStorySectionProps) {
                 </p>
               </div>
             </div>
-
-            {/* Read Full Story Button */}
-            <div style={{ textAlign: 'center', marginTop: '48px' }}>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => onNavigate('story')}
-                style={{ 
-                  backgroundColor: 'var(--hibiscus-red)', 
-                  color: '#fff', 
-                  fontFamily: 'var(--font-heading)', 
-                  fontWeight: 'bold', 
-                  textTransform: 'uppercase', 
-                  letterSpacing: '0.05em', 
-                  padding: '16px 48px', 
-                  borderRadius: '30px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  boxShadow: '0 8px 20px rgba(200, 42, 73, 0.3)',
-                  transition: 'all 0.2s'
-                }}
-              >
-                Learn More About Floffi
-              </motion.button>
-            </div>
-
           </motion.div>
         </div>
       </div>

@@ -167,14 +167,6 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 FEATURED
               </button>
 
-              {/* Story Link */}
-              <button
-                onClick={() => onNavigate('story')}
-                className={`nav-link ${currentPage === 'story' ? 'active' : ''}`}
-              >
-                OUR STORY
-              </button>
-
               {/* Enquiry Link */}
               <button
                 onClick={() => onNavigate('enquiry')}
@@ -391,20 +383,6 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   style={{ textAlign: 'left' }}
                 >
                   <span>OUR PRODUCTS</span>
-                </button>
-
-                {/* About FLOFFI Link */}
-                <button
-                  onClick={() => {
-                    onNavigate('story');
-                    setIsOpen(false);
-                  }}
-                  className={`nav-link text-base flex justify-start w-full py-1 ${
-                    currentPage === 'story' ? 'active' : ''
-                  }`}
-                  style={{ textAlign: 'left' }}
-                >
-                  <span>OUR STORY</span>
                 </button>
 
                 {/* Enquiry Link */}
