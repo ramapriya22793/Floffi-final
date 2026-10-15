@@ -58,33 +58,9 @@ export default function OurStorySection({ onNavigate }: OurStorySectionProps) {
             <p style={{ color: '#555', fontSize: '1rem', lineHeight: '1.8', marginBottom: '20px', textAlign: 'left' }}>
               Our products are made using natural ingredients without artificial colors or artificial preservatives, delivering authentic taste with a fresh and wholesome experience. From breakfast spreads to snack pairings and everyday cooking, Flowfi products are designed to fit naturally into modern lifestyles.
             </p>
-            <p style={{ color: '#555', fontSize: '1rem', lineHeight: '1.8', marginBottom: '32px', textAlign: 'left' }}>
+            <p style={{ color: '#555', fontSize: '1rem', lineHeight: '1.8', marginBottom: '0px', textAlign: 'left' }}>
               With a focus economical consumers, floral-based foods a regular part of every kitchen through supermarkets, hypermarkets, and local stores.
             </p>
-
-            {/* Divider */}
-            <hr style={{ border: 'none', borderTop: '1px solid rgba(62,39,35,0.12)', margin: '36px 0' }} />
-
-            {/* Mission & Vision Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '36px', textAlign: 'left' }}>
-              <div>
-                <h4 className="font-heading font-extrabold text-earthy-brown" style={{ fontSize: '1.35rem', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--hibiscus-red)' }}>
-                  Mission Statement
-                </h4>
-                <p style={{ color: '#555', fontSize: '0.95rem', lineHeight: '1.75' }}>
-                  To make natural floral-based foods a part of everyday life by creating healthy, flavorful, and affordable jams, spreads, sauces, and chutneys without artificial colors or preservatives for the next generation of consumers.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="font-heading font-extrabold text-earthy-brown" style={{ fontSize: '1.35rem', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--hibiscus-red)' }}>
-                  Vision Statement
-                </h4>
-                <p style={{ color: '#555', fontSize: '0.95rem', lineHeight: '1.75' }}>
-                  To become a trusted household food brand by making floral-based products available across supermarkets, hypermarkets, and local stores, bringing natural and innovative flavors to every home.
-                </p>
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>

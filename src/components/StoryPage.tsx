@@ -73,27 +73,6 @@ export default function StoryPage() {
                 With a focus economical consumers, floral-based foods a regular part of every kitchen through supermarkets, hypermarkets, and local stores.
               </p>
             </div>
-
-            {/* Mission & Vision Statements */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-[rgba(62,39,35,0.1)] text-left">
-              <div className="p-6 bg-cream-dark rounded-2xl border border-[rgba(62,39,35,0.08)]">
-                <h3 className="font-heading font-bold text-lg text-hibiscus-red mb-3 uppercase tracking-wider" style={{ color: 'var(--hibiscus-red)' }}>
-                  Mission Statement
-                </h3>
-                <p className="text-sm text-earthy-light leading-relaxed">
-                  To make natural floral-based foods a part of everyday life by creating healthy, flavorful, and affordable jams, spreads, sauces, and chutneys without artificial colors or preservatives for the next generation of consumers.
-                </p>
-              </div>
-
-              <div className="p-6 bg-cream-dark rounded-2xl border border-[rgba(62,39,35,0.08)]">
-                <h3 className="font-heading font-bold text-lg text-hibiscus-red mb-3 uppercase tracking-wider" style={{ color: 'var(--hibiscus-red)' }}>
-                  Vision Statement
-                </h3>
-                <p className="text-sm text-earthy-light leading-relaxed">
-                  To become a trusted household food brand by making floral-based products available across supermarkets, hypermarkets, and local stores, bringing natural and innovative flavors to every home.
-                </p>
-              </div>
-            </div>
           </motion.div>
 
           <hr className="border-earthy-brown/10 mb-20" style={{ border: 'none', borderTop: '1px solid rgba(62,39,35,0.08)' }} />
