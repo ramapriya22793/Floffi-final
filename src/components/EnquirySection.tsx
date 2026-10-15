@@ -1,13 +1,52 @@
 import { useState } from 'react';
 import shelfDisplay from '../assets/shelf_display.png';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, ChevronDown } from 'lucide-react';
+
+const INDIAN_STATES = [
+  'Andhra Pradesh',
+  'Arunachal Pradesh',
+  'Assam',
+  'Bihar',
+  'Chhattisgarh',
+  'Goa',
+  'Gujarat',
+  'Haryana',
+  'Himachal Pradesh',
+  'Jharkhand',
+  'Karnataka',
+  'Kerala',
+  'Madhya Pradesh',
+  'Maharashtra',
+  'Manipur',
+  'Meghalaya',
+  'Mizoram',
+  'Nagaland',
+  'Odisha',
+  'Punjab',
+  'Rajasthan',
+  'Sikkim',
+  'Tamil Nadu',
+  'Telangana',
+  'Tripura',
+  'Uttar Pradesh',
+  'Uttarakhand',
+  'West Bengal',
+  'Andaman and Nicobar Islands',
+  'Chandigarh',
+  'Dadra and Nagar Haveli and Daman and Diu',
+  'Delhi',
+  'Jammu and Kashmir',
+  'Ladakh',
+  'Lakshadweep',
+  'Puducherry'
+];
 
 export default function EnquirySection() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    country: '',
+    country: 'India',
     state: '',
     district: '',
     message: ''
@@ -35,11 +74,11 @@ export default function EnquirySection() {
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', country: '', state: '', district: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', country: 'India', state: '', district: '', message: '' });
     }, 5000);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -208,6 +247,30 @@ export default function EnquirySection() {
             outline: none;
             border-bottom-color: #F97316;
           }
+          .modern-select {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(62,39,35,0.1);
+            padding: 12px 28px 12px 0;
+            font-size: 1.05rem;
+            color: var(--earthy-brown, #3E2723);
+            transition: all 0.3s ease;
+            font-family: inherit;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+          }
+          .modern-select:focus {
+            outline: none;
+            border-bottom-color: #F97316;
+          }
+          .modern-select option {
+            background-color: #FFFFFF;
+            color: var(--earthy-brown, #3E2723);
+            padding: 8px;
+          }
           .modern-label {
             position: absolute;
             top: 12px;
@@ -218,6 +281,8 @@ export default function EnquirySection() {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 500;
           }
+          .modern-label.floating,
+          .modern-select:focus ~ .modern-label,
           .modern-input:focus ~ .modern-label,
           .modern-input:not(:placeholder-shown) ~ .modern-label {
             top: -20px;
@@ -394,17 +459,23 @@ export default function EnquirySection() {
 
             <div className="row-group">
               <div className="input-group">
-                <input 
-                  type="text" 
+                <select 
                   name="state" 
                   id="state"
-                  className="modern-input" 
-                  placeholder=" " 
+                  className="modern-select" 
                   value={formData.state}
                   onChange={handleChange}
                   required
-                />
-                <label htmlFor="state" className="modern-label">State</label>
+                >
+                  <option value="" disabled>Select State</option>
+                  {INDIAN_STATES.map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
+                <label htmlFor="state" className={`modern-label ${formData.state ? 'floating' : ''}`}>State</label>
+                <ChevronDown size={18} style={{ position: 'absolute', right: '4px', top: '16px', pointerEvents: 'none', color: '#F97316' }} />
               </div>
               <div className="input-group">
                 <input 
