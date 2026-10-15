@@ -65,7 +65,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                     >
                       {/* Floral Jam */}
                       <div className="dropdown-column">
-                        <h5 className="dropdown-heading">
+                        <h5 
+                          className="dropdown-heading cursor-pointer hover:text-earthy-brown transition-colors"
+                          onClick={() => { onNavigate('products', 'jam'); setIsProductsHovered(false); }}
+                        >
                           Floral Jam
                         </h5>
                         <ul className="dropdown-list">
@@ -90,7 +93,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
                       {/* Nectar Spread */}
                       <div className="dropdown-column">
-                        <h5 className="dropdown-heading">
+                        <h5 
+                          className="dropdown-heading cursor-pointer hover:text-earthy-brown transition-colors"
+                          onClick={() => { onNavigate('products', 'nectar-spread'); setIsProductsHovered(false); }}
+                        >
                           Nectar Spread
                         </h5>
                         <ul className="dropdown-list">
@@ -115,7 +121,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
                       {/* Floral Chutney */}
                       <div className="dropdown-column">
-                        <h5 className="dropdown-heading">
+                        <h5 
+                          className="dropdown-heading cursor-pointer hover:text-earthy-brown transition-colors"
+                          onClick={() => { onNavigate('products', 'thokku'); setIsProductsHovered(false); }}
+                        >
                           Floral Chutney
                         </h5>
                         <ul className="dropdown-list">
@@ -342,21 +351,36 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                       >
                         {/* Floral Jam Sub-List */}
                         <div className="mobile-dropdown-column">
-                          <span className="mobile-dropdown-heading">Floral Jam</span>
+                          <span 
+                            className="mobile-dropdown-heading cursor-pointer hover:text-earthy-brown"
+                            onClick={() => { onNavigate('products', 'jam'); setIsOpen(false); }}
+                          >
+                            Floral Jam
+                          </span>
                           <button onClick={() => { onNavigate('products', 'gulkhand-jam'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Gulkhand Jam</button>
                           <button onClick={() => { onNavigate('products', 'aavaram-jam'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Aavaram Jam</button>
                         </div>
 
                         {/* Nectar Spread Sub-List */}
                         <div className="mobile-dropdown-column">
-                          <span className="mobile-dropdown-heading">Nectar Spread</span>
+                          <span 
+                            className="mobile-dropdown-heading cursor-pointer hover:text-earthy-brown"
+                            onClick={() => { onNavigate('products', 'nectar-spread'); setIsOpen(false); }}
+                          >
+                            Nectar Spread
+                          </span>
                           <button onClick={() => { onNavigate('products', 'hibiscus-nectar'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Hibiscus Nectar</button>
                           <button onClick={() => { onNavigate('products', 'rose-nectar'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Rose Nectar</button>
                         </div>
 
                         {/* Floral Chutney Sub-List */}
                         <div className="mobile-dropdown-column">
-                          <span className="mobile-dropdown-heading">Floral Chutney</span>
+                          <span 
+                            className="mobile-dropdown-heading cursor-pointer hover:text-earthy-brown"
+                            onClick={() => { onNavigate('products', 'thokku'); setIsOpen(false); }}
+                          >
+                            Floral Chutney
+                          </span>
                           <button onClick={() => { onNavigate('products', 'aavaram-thokku'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Aavaram Chutney</button>
                           <button onClick={() => { onNavigate('products', 'banana-thokku'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Banana Chutney</button>
                           <button onClick={() => { onNavigate('products', 'cauliflower-thokku'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Cauliflower Chutney</button>

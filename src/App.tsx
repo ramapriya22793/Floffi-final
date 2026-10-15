@@ -16,7 +16,8 @@ function App() {
 
   // Replicate browser scroll reset on page transition (if not navigating to a specific product)
   useEffect(() => {
-    if (!selectedProductId && currentPage !== 'product-details') {
+    const isCategory = selectedProductId && ['jam', 'nectar-spread', 'thokku', 'all'].includes(selectedProductId);
+    if ((!selectedProductId || isCategory) && currentPage !== 'product-details') {
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
   }, [currentPage, selectedProductId]);

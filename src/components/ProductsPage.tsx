@@ -179,18 +179,41 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
 
   useEffect(() => {
     if (selectedProductId) {
+      if (selectedProductId === 'jam' || selectedProductId === 'floral-jam') {
+        setActiveCategories(['jam']);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      if (selectedProductId === 'nectar-spread' || selectedProductId === 'nectar') {
+        setActiveCategories(['nectar-spread']);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      if (selectedProductId === 'thokku' || selectedProductId === 'floral-chutney' || selectedProductId === 'chutney') {
+        setActiveCategories(['thokku']);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      if (selectedProductId === 'all') {
+        setActiveCategories([]);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
       const found = products.find(p => p.id === selectedProductId);
       if (found) {
         setActiveCategories([found.category]);
+        setTimeout(() => {
+          const element = document.getElementById(selectedProductId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 300);
       }
-      setTimeout(() => {
-        const element = document.getElementById(selectedProductId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 300);
+    } else {
+      setActiveCategories([]);
     }
-  }, [selectedProductId]);
+  }, [selectedProductId, products]);
 
   return (
     <div className="pt-20 bg-white min-h-screen">
@@ -208,6 +231,42 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
       <section className="section pb-24 pt-12">
         <div className="container">
           <div className="flex flex-col">
+
+            {/* Category Filter Pills */}
+            <div className="flex justify-center items-center flex-wrap gap-3 mb-12">
+              <button
+                onClick={() => setActiveCategories([])}
+                className="px-6 py-2.5 rounded-full text-sm font-bold font-heading transition-all"
+                style={{
+                  backgroundColor: activeCategories.length === 0 ? '#FF8C00' : '#FFFFFF',
+                  color: activeCategories.length === 0 ? '#FFFFFF' : 'var(--earthy-brown)',
+                  border: activeCategories.length === 0 ? '2px solid #FF8C00' : '2px solid rgba(62, 39, 35, 0.15)',
+                  boxShadow: activeCategories.length === 0 ? '0 4px 12px rgba(255, 140, 0, 0.3)' : 'none',
+                  cursor: 'pointer'
+                }}
+              >
+                All Products
+              </button>
+              {categoriesList.map((cat) => {
+                const isActive = activeCategories.length === 1 && activeCategories[0] === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategories([cat.id])}
+                    className="px-6 py-2.5 rounded-full text-sm font-bold font-heading transition-all"
+                    style={{
+                      backgroundColor: isActive ? '#FF8C00' : '#FFFFFF',
+                      color: isActive ? '#FFFFFF' : 'var(--earthy-brown)',
+                      border: isActive ? '2px solid #FF8C00' : '2px solid rgba(62, 39, 35, 0.15)',
+                      boxShadow: isActive ? '0 4px 12px rgba(255, 140, 0, 0.3)' : 'none',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {cat.label}
+                  </button>
+                );
+              })}
+            </div>
             
             {/* Product Grid */}
             <div className="w-full">
