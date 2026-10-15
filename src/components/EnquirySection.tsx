@@ -296,14 +296,14 @@ export default function EnquirySection() {
           
           <div className="contact-methods">
             <a 
-              href="mailto:floffiinfo@gmail.com" 
+              href="mailto:infopaidhu@gmail.com" 
               className="contact-method"
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
               <div className="contact-icon-box">
                 <Mail size={20} color="#E65100" />
               </div>
-              <span className="contact-detail">floffiinfo@gmail.com</span>
+              <span className="contact-detail">infopaidhu@gmail.com</span>
             </a>
             <a 
               href="https://wa.me/918754787774" 

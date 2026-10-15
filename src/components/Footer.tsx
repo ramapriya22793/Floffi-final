@@ -120,12 +120,12 @@ export default function Footer({ onNavigate }: FooterProps) {
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
               <a 
-                href="mailto:floffiinfo@gmail.com" 
+                href="mailto:infopaidhu@gmail.com" 
                 className="text-white hover:text-white/80 transition-colors"
                 style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: '#fff', fontSize: '0.95rem', fontWeight: 500 }}
               >
                 <Mail size={18} />
-                <span>floffiinfo@gmail.com</span>
+                <span>infopaidhu@gmail.com</span>
               </a>
               <a 
                 href="https://wa.me/918754787774" 
