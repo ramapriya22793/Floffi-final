@@ -66,7 +66,7 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
   },
   {
     id: 'aavaram-thokku',
-    name: 'Aavaram Thokku',
+    name: 'Aavaram Chutney',
     category: 'thokku',
     image: aavaramThokkuImg,
     price: 230,
@@ -74,7 +74,7 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
   },
   {
     id: 'banana-thokku',
-    name: 'Banana Thokku',
+    name: 'Banana Chutney',
     category: 'thokku',
     image: bananaThokkuImg,
     price: 230,
@@ -82,7 +82,7 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
   },
   {
     id: 'cauliflower-thokku',
-    name: 'Cauliflower Thokku',
+    name: 'Cauliflower Chutney',
     category: 'thokku',
     image: cauliflowerThokkuImg,
     price: 230,
@@ -160,9 +160,9 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
   };
 
   const categoriesList = [
-    { id: 'jam', label: 'Premium Jams' },
-    { id: 'nectar-spread', label: 'Nectar Spreads' },
-    { id: 'thokku', label: 'Chutneys & Thokkus' }
+    { id: 'jam', label: 'Floral Jam' },
+    { id: 'nectar-spread', label: 'Nectar Spread' },
+    { id: 'thokku', label: 'Floral Chutney' }
   ];
 
   const toggleCategory = (catId: string) => {
@@ -260,7 +260,7 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
                           
                           {/* Product Title */}
                           <h3 className="font-heading font-bold text-center w-full text-earthy-brown mt-6 mb-1 text-lg group-hover:text-hibiscus-red transition-colors">
-                            {product.name}
+                            {product.name.replace(/thokku/gi, 'Chutney')}
                           </h3>
 
                           {/* Price Display */}

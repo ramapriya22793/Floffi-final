@@ -63,10 +63,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                       transition={{ duration: 0.2 }}
                       className="dropdown-menu-card"
                     >
-                      {/* Jams */}
+                      {/* Floral Jam */}
                       <div className="dropdown-column">
                         <h5 className="dropdown-heading">
-                          Jams
+                          Floral Jam
                         </h5>
                         <ul className="dropdown-list">
                           <li>
@@ -88,10 +88,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                         </ul>
                       </div>
 
-                      {/* Nectars */}
+                      {/* Nectar Spread */}
                       <div className="dropdown-column">
                         <h5 className="dropdown-heading">
-                          Nectars
+                          Nectar Spread
                         </h5>
                         <ul className="dropdown-list">
                           <li>
@@ -113,10 +113,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                         </ul>
                       </div>
 
-                      {/* Thokkus */}
+                      {/* Floral Chutney */}
                       <div className="dropdown-column">
                         <h5 className="dropdown-heading">
-                          Thokkus
+                          Floral Chutney
                         </h5>
                         <ul className="dropdown-list">
                           <li>
@@ -124,7 +124,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                               onClick={() => { onNavigate('products', 'aavaram-thokku'); setIsProductsHovered(false); }}
                               className="dropdown-item-btn"
                             >
-                              Aavaram Thokku
+                              Aavaram Chutney
                             </button>
                           </li>
                           <li>
@@ -132,7 +132,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                               onClick={() => { onNavigate('products', 'banana-thokku'); setIsProductsHovered(false); }}
                               className="dropdown-item-btn"
                             >
-                              Banana Thokku
+                              Banana Chutney
                             </button>
                           </li>
                           <li>
@@ -140,7 +140,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                               onClick={() => { onNavigate('products', 'cauliflower-thokku'); setIsProductsHovered(false); }}
                               className="dropdown-item-btn"
                             >
-                              Cauliflower Thokku
+                              Cauliflower Chutney
                             </button>
                           </li>
                         </ul>
@@ -340,26 +340,26 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                         className="overflow-hidden pl-4 flex flex-col gap-3.5 mt-2"
                         style={{ borderLeft: '1.5px solid rgba(62,39,35,0.1)' }}
                       >
-                        {/* Jams Sub-List */}
+                        {/* Floral Jam Sub-List */}
                         <div className="mobile-dropdown-column">
-                          <span className="mobile-dropdown-heading">Jams</span>
+                          <span className="mobile-dropdown-heading">Floral Jam</span>
                           <button onClick={() => { onNavigate('products', 'gulkhand-jam'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Gulkhand Jam</button>
                           <button onClick={() => { onNavigate('products', 'aavaram-jam'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Aavaram Jam</button>
                         </div>
 
-                        {/* Nectars Sub-List */}
+                        {/* Nectar Spread Sub-List */}
                         <div className="mobile-dropdown-column">
-                          <span className="mobile-dropdown-heading">Nectars</span>
+                          <span className="mobile-dropdown-heading">Nectar Spread</span>
                           <button onClick={() => { onNavigate('products', 'hibiscus-nectar'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Hibiscus Nectar</button>
                           <button onClick={() => { onNavigate('products', 'rose-nectar'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Rose Nectar</button>
                         </div>
 
-                        {/* Thokkus Sub-List */}
+                        {/* Floral Chutney Sub-List */}
                         <div className="mobile-dropdown-column">
-                          <span className="mobile-dropdown-heading">Thokkus</span>
-                          <button onClick={() => { onNavigate('products', 'aavaram-thokku'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Aavaram Thokku</button>
-                          <button onClick={() => { onNavigate('products', 'banana-thokku'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Banana Thokku</button>
-                          <button onClick={() => { onNavigate('products', 'cauliflower-thokku'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Cauliflower Thokku</button>
+                          <span className="mobile-dropdown-heading">Floral Chutney</span>
+                          <button onClick={() => { onNavigate('products', 'aavaram-thokku'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Aavaram Chutney</button>
+                          <button onClick={() => { onNavigate('products', 'banana-thokku'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Banana Chutney</button>
+                          <button onClick={() => { onNavigate('products', 'cauliflower-thokku'); setIsOpen(false); }} className="mobile-dropdown-item-btn">Cauliflower Chutney</button>
                         </div>
                       </motion.div>
                     )}

@@ -113,11 +113,11 @@ export default function RecipesPage() {
       image: shelfDisplay,
       prepTime: '10 mins',
       difficulty: 'Easy',
-      floffiIngredient: 'Aavaram Thokku',
-      description: 'Crispy South Indian dosa spread with a spicy, herbal layer of wood-pressed Aavaram Thokku. Quick evening snack.',
+      floffiIngredient: 'Aavaram Chutney',
+      description: 'Crispy South Indian dosa spread with a spicy, herbal layer of wood-pressed Aavaram Chutney. Quick evening snack.',
       ingredients: [
         '2 cups fermented Dosa Batter',
-        '2 tbsp Floffi Aavaram Thokku',
+        '2 tbsp Floffi Aavaram Chutney',
         '1 tbsp Ghee or Oil',
         '1/2 cup grated Paneer or Cheese (optional)',
         'Fresh curry leaves'
@@ -126,7 +126,7 @@ export default function RecipesPage() {
         'Heat a dosa tawa (griddle) over medium-high heat and grease lightly.',
         'Pour a ladleful of dosa batter in the center and spread it in circular motions to make a thin, crispy crepe.',
         'Drizzle ghee or oil around the edges of the dosa.',
-        'Once the bottom starts cooking, spread 1 to 2 tablespoons of Floffi Aavaram Thokku evenly over the top surface.',
+        'Once the bottom starts cooking, spread 1 to 2 tablespoons of Floffi Aavaram Chutney evenly over the top surface.',
         'Sprinkle grated paneer or cheese in the center (if using).',
         'Fold the dosa in half when crispy and golden-brown, then serve with coconut chutney!'
       ]

@@ -41,7 +41,7 @@ export default function WhyChooseUs() {
     {
       icon: <Users size={24} />,
       title: 'Made for Modern Families',
-      description: 'From quick breakfast jams on school mornings to savory thokkus for family dinners, our products are engineered to slot right into modern kitchens.',
+      description: 'From quick breakfast jams on school mornings to savory chutneys for family dinners, our products are engineered to slot right into modern kitchens.',
       bgColor: 'rgba(90, 143, 67, 0.08)',
       iconColor: 'var(--leaf-green)'
     }

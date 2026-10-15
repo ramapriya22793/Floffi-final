@@ -21,9 +21,9 @@ export default function ProductCategories({ onNavigate }: ProductCategoriesProps
   const [activeCategory, setActiveCategory] = useState<'jams' | 'nectars' | 'thokkus'>('jams');
 
   const categories = [
-    { id: 'jams', name: 'Premium Jams' },
-    { id: 'nectars', name: 'Nectar Spreads' },
-    { id: 'thokkus', name: 'Chutneys & Thokkus' },
+    { id: 'jams', name: 'Floral Jam' },
+    { id: 'nectars', name: 'Nectar Spread' },
+    { id: 'thokkus', name: 'Floral Chutney' },
   ];
 
   const products: Product[] = [
@@ -69,9 +69,9 @@ export default function ProductCategories({ onNavigate }: ProductCategoriesProps
     },
     {
       id: 'aavaram-thokku',
-      name: 'Aavaram Thokku',
+      name: 'Aavaram Chutney',
       category: 'thokkus',
-      description: 'A traditional-style savory thokku prepared using natural Aavaram flowers blended with authentic spices. With its signature balance of gentle bitterness, spice, and subtle sweetness, FLOFFI Aavaram Thokku brings a bold and unique flavor to rice, dosa, idli, chapati, and daily meals.',
+      description: 'A traditional-style savory chutney prepared using natural Aavaram flowers blended with authentic spices. With its signature balance of gentle bitterness, spice, and subtle sweetness, FLOFFI Aavaram Chutney brings a bold and unique flavor to rice, dosa, idli, chapati, and daily meals.',
       color: 'rgba(244, 196, 48, 0.12)',
       accentColor: 'var(--aavaram-yellow)',
       badge: 'Spicy Herbal',
@@ -79,9 +79,9 @@ export default function ProductCategories({ onNavigate }: ProductCategoriesProps
     },
     {
       id: 'banana-thokku',
-      name: 'Banana Thokku',
+      name: 'Banana Chutney',
       category: 'thokkus',
-      description: 'A unique savory blend crafted from ripe bananas and traditional spices for a mildly sweet, tangy, and spicy flavor profile. FLOFFI Banana Thokku adds a distinctive twist to everyday meals and works perfectly as a flavorful side dish, spread, or accompaniment.',
+      description: 'A unique savory blend crafted from ripe bananas and traditional spices for a mildly sweet, tangy, and spicy flavor profile. FLOFFI Banana Chutney adds a distinctive twist to everyday meals and works perfectly as a flavorful side dish, spread, or accompaniment.',
       color: 'rgba(90, 143, 67, 0.08)',
       accentColor: 'var(--leaf-green)',
       badge: 'Unique Savior',
@@ -89,9 +89,9 @@ export default function ProductCategories({ onNavigate }: ProductCategoriesProps
     },
     {
       id: 'cauliflower-thokku',
-      name: 'Cauliflower Thokku',
+      name: 'Cauliflower Chutney',
       category: 'thokkus',
-      description: 'A rich and flavorful thokku made from fresh cauliflower blended with aromatic spices and traditional ingredients. FLOFFI Cauliflower Thokku delivers a bold homemade taste that pairs perfectly with rice, dosa, chapati, idli, and snacks for everyday enjoyment.',
+      description: 'A rich and flavorful chutney made from fresh cauliflower blended with aromatic spices and traditional ingredients. FLOFFI Cauliflower Chutney delivers a bold homemade taste that pairs perfectly with rice, dosa, chapati, idli, and snacks for everyday enjoyment.',
       color: 'rgba(62, 39, 35, 0.05)',
       accentColor: 'var(--earthy-brown)',
       badge: 'Savory & Tangy',
@@ -187,7 +187,7 @@ export default function ProductCategories({ onNavigate }: ProductCategoriesProps
             Explore Our Products
           </h2>
           <p className="mt-4" style={{ color: 'var(--earthy-light)' }}>
-            Drawn from premium floral ingredients. Perfect spreads, jams, and traditional thokkus without artificial colors or preservatives.
+            Drawn from premium floral ingredients. Perfect spreads, jams, and traditional chutneys without artificial colors or preservatives.
           </p>
         </div>
 

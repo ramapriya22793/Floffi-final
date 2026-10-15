@@ -32,14 +32,37 @@ const LOCAL_FALLBACKS: Record<string, string> = {
 };
 
 const DEFAULT_PRODUCTS: ProductItem[] = [
-  { id: 'aavaram-jam', name: 'Aavaram Jam', image: aavaramJam },
-  { id: 'rose-nectar', name: 'Rose Nectar Spread', image: roseNectar },
-  { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', image: hibiscusNectar },
-  { id: 'aavaram-thokku', name: 'Aavaram Thokku', image: aavaramThokku },
+  { id: 'gulkhand-jam', name: 'Gulkhand Jam', image: gulkhandJam, category: 'Floral Jam' },
+  { id: 'aavaram-jam', name: 'Aavaram Jam', image: aavaramJam, category: 'Floral Jam' },
+  { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', image: hibiscusNectar, category: 'Nectar Spread' },
+  { id: 'rose-nectar', name: 'Rose Nectar Spread', image: roseNectar, category: 'Nectar Spread' },
+  { id: 'aavaram-thokku', name: 'Aavaram Chutney', image: aavaramThokku, category: 'Floral Chutney' },
+  { id: 'banana-thokku', name: 'Banana Chutney', image: bananaThokku, category: 'Floral Chutney' },
+  { id: 'cauliflower-thokku', name: 'Cauliflower Chutney', image: cauliflowerThokku, category: 'Floral Chutney' },
 ];
+
+const formatProductName = (name: string): string => {
+  return name.replace(/thokku/gi, 'Chutney');
+};
+
+const getProductCategory = (product: ProductItem): string => {
+  const name = (product.name || '').toLowerCase();
+  const cat = (product.category || '').toLowerCase();
+  if (cat.includes('nectar') || name.includes('nectar')) return 'Nectar Spread';
+  if (cat.includes('chutney') || cat.includes('thokku') || name.includes('chutney') || name.includes('thokku')) return 'Floral Chutney';
+  return 'Floral Jam';
+};
 
 export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
   const [products, setProducts] = useState<ProductItem[]>(DEFAULT_PRODUCTS);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+
+  const categories = [
+    { id: 'All', label: 'All Products' },
+    { id: 'Floral Jam', label: 'Floral Jam' },
+    { id: 'Nectar Spread', label: 'Nectar Spread' },
+    { id: 'Floral Chutney', label: 'Floral Chutney' },
+  ];
 
   useEffect(() => {
     async function fetchProducts() {
@@ -70,16 +93,61 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
     }
   };
 
+  const filteredProducts = selectedCategory === 'All'
+    ? products
+    : products.filter(p => getProductCategory(p) === selectedCategory);
+
   return (
     <section id="our-products" className="bg-white" style={{ backgroundColor: '#fff', paddingTop: '40px', paddingBottom: '64px' }}>
       {/* Title */}
-      <div className="container" style={{ textAlign: 'center', marginBottom: '40px' }}>
+      <div className="container" style={{ textAlign: 'center', marginBottom: '32px' }}>
         <h2 className="font-heading font-extrabold" style={{ fontSize: '2.5rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--earthy-brown)' }}>
           Our Products
         </h2>
         <p style={{ color: 'var(--earthy-light, #666)', fontSize: '1rem', marginTop: '8px' }}>
           Pure, naturally crafted floral spreads & traditional condiments
         </p>
+      </div>
+
+      {/* Category Filter Tabs */}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '36px', padding: '0 16px' }}>
+        {categories.map((cat) => {
+          const isActive = selectedCategory === cat.id;
+          return (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              style={{
+                padding: '10px 24px',
+                borderRadius: '30px',
+                fontSize: '0.95rem',
+                fontWeight: 700,
+                fontFamily: 'var(--font-heading)',
+                letterSpacing: '0.03em',
+                cursor: 'pointer',
+                transition: 'all 0.25s ease',
+                backgroundColor: isActive ? '#FF8C00' : '#FFFFFF',
+                color: isActive ? '#FFFFFF' : 'var(--earthy-brown)',
+                border: isActive ? '2px solid #FF8C00' : '2px solid rgba(62, 39, 35, 0.15)',
+                boxShadow: isActive ? '0 4px 14px rgba(255, 140, 0, 0.35)' : 'none',
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.borderColor = '#FF8C00';
+                  e.currentTarget.style.color = '#FF8C00';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.borderColor = 'rgba(62, 39, 35, 0.15)';
+                  e.currentTarget.style.color = 'var(--earthy-brown)';
+                }
+              }}
+            >
+              {cat.label}
+            </button>
+          );
+        })}
       </div>
 
       {/* Image Banner with Overlay Cards */}
@@ -94,13 +162,12 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
         {/* Content Overlay */}
         <div style={{ position: 'relative', zIndex: 10, width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2px', backgroundColor: '#fff', padding: '2px' }}>
-            {products.map((product, idx) => (
+            {filteredProducts.map((product, idx) => (
               <motion.div 
                 key={product.id}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: idx * 0.05 }}
                 whileHover={{ y: -4 }}
                 onClick={() => onNavigate('product-details', product.id)}
                 style={{ backgroundColor: '#fff', overflow: 'hidden', cursor: 'pointer', transition: 'box-shadow 0.3s ease' }}
@@ -119,7 +186,7 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
                   <div style={{ width: '180px', height: '180px', borderRadius: '50%', border: '8px solid #fff', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.3s ease' }}>
                     <img 
                       src={getProductImageUrl(product)} 
-                      alt={product.name} 
+                      alt={formatProductName(product.name)} 
                       onError={(e) => {
                         const fallback = LOCAL_FALLBACKS[product.id];
                         if (fallback) {
@@ -135,7 +202,7 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
                 {/* Orange Title Bar */}
                 <div style={{ backgroundColor: '#FF8C00', color: '#fff', textAlign: 'center', padding: '16px 12px', minHeight: '80px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderTop: '2px solid rgba(255,255,255,0.2)' }}>
                   <h4 style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: '1.05rem', margin: 0 }}>
-                    {product.name}
+                    {formatProductName(product.name)}
                   </h4>
                   <span style={{ fontSize: '0.8rem', opacity: 0.9, marginTop: '4px', textDecoration: 'underline' }}>
                     View Details &rarr;

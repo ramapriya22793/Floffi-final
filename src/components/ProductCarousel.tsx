@@ -29,9 +29,9 @@ const DEFAULT_CAROUSEL_PRODUCTS: Product[] = [
   { id: 'aavaram-jam', name: 'Aavaram Jam', category: 'jam', image: aavaramJamImg, price: 200, original_price: 245 },
   { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', category: 'nectar-spread', image: hibiscusNectarImg, price: 350, original_price: 400 },
   { id: 'rose-nectar', name: 'Rose Nectar Spread', category: 'nectar-spread', image: roseNectarImg, price: 325, original_price: 375 },
-  { id: 'aavaram-thokku', name: 'Aavaram Thokku', category: 'thokku', image: aavaramThokkuImg, price: 230, original_price: 270 },
-  { id: 'banana-thokku', name: 'Banana Thokku', category: 'thokku', image: bananaThokkuImg, price: 230, original_price: 270 },
-  { id: 'cauliflower-thokku', name: 'Cauliflower Thokku', category: 'thokku', image: cauliflowerThokkuImg, price: 230, original_price: 270 }
+  { id: 'aavaram-thokku', name: 'Aavaram Chutney', category: 'thokku', image: aavaramThokkuImg, price: 230, original_price: 270 },
+  { id: 'banana-thokku', name: 'Banana Chutney', category: 'thokku', image: bananaThokkuImg, price: 230, original_price: 270 },
+  { id: 'cauliflower-thokku', name: 'Cauliflower Chutney', category: 'thokku', image: cauliflowerThokkuImg, price: 230, original_price: 270 }
 ];
 
 const buildDisplayList = (items: Product[]) => {
@@ -326,7 +326,7 @@ export default function ProductCarousel({ onNavigate }: ProductCarouselProps) {
                 />
               </div>
               <div className="pc-content w-full flex flex-col items-center justify-center">
-                <h3 className="pc-name text-center w-full">{product.name}</h3>
+                <h3 className="pc-name text-center w-full">{product.name.replace(/thokku/gi, 'Chutney')}</h3>
                 
                 {/* Price Display */}
                 <div className="flex items-center justify-center gap-2 mb-4" style={{ marginTop: '8px' }}>

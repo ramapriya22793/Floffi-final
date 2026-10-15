@@ -31,9 +31,9 @@ const DEFAULT_PRODUCTS: Record<string, ProductDetail> = {
   'aavaram-jam': { id: 'aavaram-jam', name: 'Aavaram Jam', category: 'jam', image: aavaramJamImg, price: 200, original_price: 245 },
   'hibiscus-nectar': { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', category: 'nectar-spread', image: hibiscusNectarImg, price: 350, original_price: 400 },
   'rose-nectar': { id: 'rose-nectar', name: 'Rose Nectar Spread', category: 'nectar-spread', image: roseNectarImg, price: 325, original_price: 375 },
-  'aavaram-thokku': { id: 'aavaram-thokku', name: 'Aavaram Thokku', category: 'thokku', image: aavaramThokkuImg, price: 230, original_price: 270 },
-  'banana-thokku': { id: 'banana-thokku', name: 'Banana Thokku', category: 'thokku', image: bananaThokkuImg, price: 230, original_price: 270 },
-  'cauliflower-thokku': { id: 'cauliflower-thokku', name: 'Cauliflower Thokku', category: 'thokku', image: cauliflowerThokkuImg, price: 230, original_price: 270 }
+  'aavaram-thokku': { id: 'aavaram-thokku', name: 'Aavaram Chutney', category: 'thokku', image: aavaramThokkuImg, price: 230, original_price: 270 },
+  'banana-thokku': { id: 'banana-thokku', name: 'Banana Chutney', category: 'thokku', image: bananaThokkuImg, price: 230, original_price: 270 },
+  'cauliflower-thokku': { id: 'cauliflower-thokku', name: 'Cauliflower Chutney', category: 'thokku', image: cauliflowerThokkuImg, price: 230, original_price: 270 }
 };
 
 export default function ProductDetailsPage({ productId, onNavigate }: ProductDetailsPageProps) {
@@ -138,16 +138,16 @@ export default function ProductDetailsPage({ productId, onNavigate }: ProductDet
       return "A smooth and aromatic floral nectar spread infused with the delicate essence of rose petals. Perfect as a topping, drizzle, or breakfast companion, this naturally inspired spread delivers refreshing floral sweetness with a rich texture and authentic taste without artificial colors or preservatives.";
     }
     
-    if (productName.includes('aavaram thokku')) {
-      return "A traditional-style savory thokku prepared using natural Aavaram flowers blended with authentic spices. With its signature balance of gentle bitterness, spice, and subtle sweetness, FLOFFI Aavaram Thokku brings a bold and unique flavor to rice, dosa, idli, chapati, and daily meals.";
+    if (productName.includes('aavaram')) {
+      return "A traditional-style savory chutney prepared using natural Aavaram flowers blended with authentic spices. With its signature balance of gentle bitterness, spice, and subtle sweetness, FLOFFI Aavaram Chutney brings a bold and unique flavor to rice, dosa, idli, chapati, and daily meals.";
     }
     
-    if (productName.includes('banana thokku')) {
-      return "A unique savory blend crafted from ripe bananas and traditional spices for a mildly sweet, tangy, and spicy flavor profile. FLOFFI Banana Thokku adds a distinctive twist to everyday meals and works perfectly as a flavorful side dish, spread, or accompaniment.";
+    if (productName.includes('banana')) {
+      return "A unique savory blend crafted from ripe bananas and traditional spices for a mildly sweet, tangy, and spicy flavor profile. FLOFFI Banana Chutney adds a distinctive twist to everyday meals and works perfectly as a flavorful side dish, spread, or accompaniment.";
     }
     
-    if (productName.includes('cauliflower thokku')) {
-      return "A rich and flavorful thokku made from fresh cauliflower blended with aromatic spices and traditional ingredients. FLOFFI Cauliflower Thokku delivers a bold homemade taste that pairs perfectly with rice, dosa, chapati, idli, and snacks for everyday enjoyment.";
+    if (productName.includes('cauliflower')) {
+      return "A rich and flavorful chutney made from fresh cauliflower blended with aromatic spices and traditional ingredients. FLOFFI Cauliflower Chutney delivers a bold homemade taste that pairs perfectly with rice, dosa, chapati, idli, and snacks for everyday enjoyment.";
     }
     
     return "A naturally crafted, artisanal product made with love. Perfect for adding a touch of floral goodness to your everyday meals.";
@@ -220,12 +220,12 @@ export default function ProductDetailsPage({ productId, onNavigate }: ProductDet
           {/* Product Details Section */}
           <div className="flex flex-col">
             <h1 className="font-heading font-black text-4xl md:text-5xl text-earthy-brown mb-2 leading-tight">
-              {product.name}
+              {product.name.replace(/thokku/gi, 'Chutney')}
             </h1>
             
             <p className="text-earthy-brown/60 uppercase tracking-widest text-sm font-bold mb-8">
               {product.category === 'nectar-spread' ? 'Nectar Spread' : 
-               product.category === 'jam' ? 'Premium Jam' : 'Chutneys & Thokkus'}
+               product.category === 'jam' ? 'Floral Jam' : 'Floral Chutney'}
             </p>
 
             <div className="flex items-end gap-4 mb-8 pb-8 border-b border-[rgba(62,39,35,0.1)]">

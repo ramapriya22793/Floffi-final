@@ -116,7 +116,7 @@ export default function StoryPage() {
               Our 100% Real Flower Sourcing Promise
             </h3>
             <p className="text-base text-earthy-light leading-relaxed">
-              We promise that every jar of Floffi jam, spread, and thokku contains real flower petals and natural food ingredients. We strictly prohibit the use of artificial colors, chemical preservatives, or synthetic food stabilizers. By keeping our processing minimal and using traditional glass jar packing, we preserve the authentic flavor, color, and nutritional goodness of edible flowers for you and your family.
+              We promise that every jar of Floffi jam, spread, and chutney contains real flower petals and natural food ingredients. We strictly prohibit the use of artificial colors, chemical preservatives, or synthetic food stabilizers. By keeping our processing minimal and using traditional glass jar packing, we preserve the authentic flavor, color, and nutritional goodness of edible flowers for you and your family.
             </p>
           </div>
 
