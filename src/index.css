@@ -310,10 +310,10 @@ a {
   left: 0;
   right: 0;
   z-index: 100;
-  background-color: var(--white);
-  border-bottom: 4px solid var(--hibiscus-red);
+  background-color: #FF8C00;
+  border-bottom: 2px solid #E67D00;
   padding: 12px 0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 16px rgba(255, 140, 0, 0.28);
 }
 
 .header-container {
@@ -359,16 +359,25 @@ a {
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.95rem;
-  color: #4d4d4d;
+  color: #FFFFFF;
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
   padding: 6px 0;
+  letter-spacing: 0.04em;
 }
 
-.nav-link:hover, .nav-link.active {
-  color: var(--hibiscus-red);
+.nav-link:hover {
+  color: #FFF3E0;
+  opacity: 0.9;
+}
+
+.nav-link.active {
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2.5px;
 }
 
 .buy-online-btn {
@@ -536,31 +545,35 @@ a {
 .search-icon {
   position: absolute;
   left: 10px;
-  color: var(--hibiscus-red);
+  color: #FF8C00;
   display: flex;
   align-items: center;
 }
 
 .search-input {
-  border: 1px solid #ccc;
-  padding: 6px 12px 6px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 7px 12px 7px 32px;
   font-size: 11px;
   font-weight: 600;
-  border-radius: 2px;
+  border-radius: 6px;
   width: 200px;
   outline: none;
   font-family: var(--font-body);
+  background-color: #FFFFFF;
+  color: #3E2723;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 
 .search-input:focus {
-  border-color: var(--hibiscus-red);
+  border-color: #FFFFFF;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
 .mobile-toggle {
   display: none;
   background: transparent;
   border: none;
-  color: #4d4d4d;
+  color: #FFFFFF;
   cursor: pointer;
 }
 

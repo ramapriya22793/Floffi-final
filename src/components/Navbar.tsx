@@ -192,8 +192,21 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               onClick={() => {
                 window.open('https://wa.me/918754787774?text=' + encodeURIComponent('Hi Floffi, I would like to make an enquiry.'), '_blank');
               }}
-              className="btn btn-primary"
-              style={{ padding: '8px 16px', fontSize: '0.85rem', borderRadius: '8px', marginRight: '8px' }}
+              style={{
+                backgroundColor: '#FFFFFF',
+                color: '#FF8C00',
+                fontFamily: 'var(--font-heading)',
+                fontWeight: 800,
+                padding: '8px 18px',
+                fontSize: '0.85rem',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                marginRight: '8px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+                transition: 'all 0.2s ease',
+              }}
+              className="hover:scale-105 active:scale-95"
             >
               ENQUIRE NOW
             </button>
@@ -212,33 +225,33 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             </form>
 
             {/* Icons: Account, Wishlist, Cart */}
-            <div className="flex items-center gap-5 ml-4 text-earthy-brown">
+            <div className="flex items-center gap-5 ml-4 text-white">
               <button 
-                className="hover:text-hibiscus-red transition-colors cursor-pointer" 
+                className="hover:opacity-80 transition-opacity cursor-pointer" 
                 aria-label="Account"
-                style={{ background: 'none', border: 'none', padding: 0, display: 'flex' }}
+                style={{ background: 'none', border: 'none', padding: 0, display: 'flex', color: '#FFFFFF' }}
               >
-                <User size={24} strokeWidth={1.5} />
+                <User size={24} strokeWidth={1.8} />
               </button>
               <button 
-                className="hover:text-hibiscus-red transition-colors cursor-pointer" 
+                className="hover:opacity-80 transition-opacity cursor-pointer" 
                 aria-label="Wishlist"
-                style={{ background: 'none', border: 'none', padding: 0, display: 'flex' }}
+                style={{ background: 'none', border: 'none', padding: 0, display: 'flex', color: '#FFFFFF' }}
               >
-                <Heart size={24} strokeWidth={1.5} />
+                <Heart size={24} strokeWidth={1.8} />
               </button>
               <button 
-                className="hover:text-hibiscus-red transition-colors cursor-pointer relative" 
+                className="hover:opacity-80 transition-opacity cursor-pointer relative" 
                 aria-label="Cart"
-                style={{ background: 'none', border: 'none', padding: 0, display: 'flex' }}
+                style={{ background: 'none', border: 'none', padding: 0, display: 'flex', color: '#FFFFFF' }}
               >
-                <ShoppingCart size={24} strokeWidth={1.5} />
+                <ShoppingCart size={24} strokeWidth={1.8} />
                 <span 
                   style={{ 
                     position: 'absolute', 
                     top: '-6px', 
                     right: '-8px', 
-                    backgroundColor: '#E31837', 
+                    backgroundColor: '#3E2723', 
                     color: 'white', 
                     fontSize: '10px', 
                     fontWeight: 'bold', 
@@ -260,10 +273,11 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           {/* Mobile Menu Icon Button */}
           <button
             onClick={() => setIsOpen(true)}
-            className="mobile-toggle"
+            className="mobile-toggle text-white"
+            style={{ color: '#FFFFFF' }}
             aria-label="Open menu"
           >
-            <Menu size={24} />
+            <Menu size={26} />
           </button>
         </div>
       </header>
