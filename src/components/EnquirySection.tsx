@@ -46,7 +46,6 @@ export default function EnquirySection() {
     name: '',
     email: '',
     phone: '',
-    country: 'India',
     state: '',
     district: '',
     message: ''
@@ -63,7 +62,6 @@ export default function EnquirySection() {
       `*Name:* ${formData.name}\n` +
       `*Email:* ${formData.email}\n` +
       `*Phone:* ${formData.phone || 'Not provided'}\n` +
-      `*Country:* ${formData.country || 'Not provided'}\n` +
       `*State:* ${formData.state || 'Not provided'}\n` +
       `*District:* ${formData.district || 'Not provided'}\n\n` +
       `*Message:*\n${formData.message}`;
@@ -74,7 +72,7 @@ export default function EnquirySection() {
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', country: 'India', state: '', district: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', state: '', district: '', message: '' });
     }, 5000);
   };
 
@@ -428,33 +426,18 @@ export default function EnquirySection() {
               </div>
             </div>
 
-            <div className="row-group">
-              <div className="input-group">
-                <input 
-                  type="tel" 
-                  name="phone" 
-                  id="phone"
-                  className="modern-input" 
-                  placeholder=" " 
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="phone" className="modern-label">Phone Number</label>
-              </div>
-              <div className="input-group">
-                <input 
-                  type="text" 
-                  name="country" 
-                  id="country"
-                  className="modern-input" 
-                  placeholder=" " 
-                  value={formData.country}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="country" className="modern-label">Country</label>
-              </div>
+            <div className="input-group">
+              <input 
+                type="tel" 
+                name="phone" 
+                id="phone"
+                className="modern-input" 
+                placeholder=" " 
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="phone" className="modern-label">Phone Number</label>
             </div>
 
             <div className="row-group">
