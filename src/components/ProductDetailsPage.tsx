@@ -2,14 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArrowLeft, MessageCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import type { PageRoute } from '../App';
-
-import gulkhandJamImg from '../assets/gulkhand_jam.png';
-import aavaramJamImg from '../assets/aavaram_jam.png';
-import hibiscusNectarImg from '../assets/hibiscus_nectar.png';
-import roseNectarImg from '../assets/rose_nectar.png';
-import aavaramThokkuImg from '../assets/aavaram_thokku.png';
-import bananaThokkuImg from '../assets/banana_thokku.png';
-import cauliflowerThokkuImg from '../assets/cauliflower_thokku.png';
+import { REAL_PRODUCT_IMAGES } from '../data/productImages';
 
 interface ProductDetail {
   id: string;
@@ -27,13 +20,13 @@ interface ProductDetailsPageProps {
 }
 
 const DEFAULT_PRODUCTS: Record<string, ProductDetail> = {
-  'gulkhand-jam': { id: 'gulkhand-jam', name: 'Gulkhand Jam', category: 'jam', image: gulkhandJamImg, price: 200, original_price: 245 },
-  'aavaram-jam': { id: 'aavaram-jam', name: 'Aavaram Jam', category: 'jam', image: aavaramJamImg, price: 200, original_price: 245 },
-  'hibiscus-nectar': { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', category: 'nectar-spread', image: hibiscusNectarImg, price: 350, original_price: 400 },
-  'rose-nectar': { id: 'rose-nectar', name: 'Rose Nectar Spread', category: 'nectar-spread', image: roseNectarImg, price: 325, original_price: 375 },
-  'aavaram-thokku': { id: 'aavaram-thokku', name: 'Aavaram Chutney', category: 'thokku', image: aavaramThokkuImg, price: 230, original_price: 270 },
-  'banana-thokku': { id: 'banana-thokku', name: 'Banana Chutney', category: 'thokku', image: bananaThokkuImg, price: 230, original_price: 270 },
-  'cauliflower-thokku': { id: 'cauliflower-thokku', name: 'Cauliflower Chutney', category: 'thokku', image: cauliflowerThokkuImg, price: 230, original_price: 270 }
+  'gulkhand-jam': { id: 'gulkhand-jam', name: 'Gulkhand Jam', category: 'jam', image: REAL_PRODUCT_IMAGES['gulkhand-jam'], price: 200, original_price: 245 },
+  'aavaram-jam': { id: 'aavaram-jam', name: 'Aavaram Jam', category: 'jam', image: REAL_PRODUCT_IMAGES['aavaram-jam'], price: 200, original_price: 245 },
+  'hibiscus-nectar': { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', category: 'nectar-spread', image: REAL_PRODUCT_IMAGES['hibiscus-nectar'], price: 350, original_price: 400 },
+  'rose-nectar': { id: 'rose-nectar', name: 'Rose Nectar Spread', category: 'nectar-spread', image: REAL_PRODUCT_IMAGES['rose-nectar'], price: 325, original_price: 375 },
+  'aavaram-thokku': { id: 'aavaram-thokku', name: 'Aavaram Chutney', category: 'thokku', image: REAL_PRODUCT_IMAGES['aavaram-thokku'], price: 230, original_price: 270 },
+  'banana-thokku': { id: 'banana-thokku', name: 'Banana Chutney', category: 'thokku', image: REAL_PRODUCT_IMAGES['banana-thokku'], price: 230, original_price: 270 },
+  'cauliflower-thokku': { id: 'cauliflower-thokku', name: 'Cauliflower Chutney', category: 'thokku', image: REAL_PRODUCT_IMAGES['cauliflower-thokku'], price: 230, original_price: 270 }
 };
 
 export default function ProductDetailsPage({ productId, onNavigate }: ProductDetailsPageProps) {

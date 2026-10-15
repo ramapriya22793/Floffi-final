@@ -1,21 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
+import { SlidersHorizontal, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import type { PageRoute } from '../App';
 
-import instaField from '../assets/insta_field.png';
-import heroJars from '../assets/hero_jars.png';
 import productBanner from '../assets/new_product_banner_1.png';
-
-// Product jar images
-import gulkhandJamImg from '../assets/gulkhand_jam.png';
-import aavaramJamImg from '../assets/aavaram_jam.png';
-import hibiscusNectarImg from '../assets/hibiscus_nectar.png';
-import roseNectarImg from '../assets/rose_nectar.png';
-import aavaramThokkuImg from '../assets/aavaram_thokku.png';
-import bananaThokkuImg from '../assets/banana_thokku.png';
-import cauliflowerThokkuImg from '../assets/cauliflower_thokku.png';
+import heroJars from '../assets/hero_jars.png';
+import { REAL_PRODUCT_IMAGES } from '../data/productImages';
 
 interface ProductDetail {
   id: string;
@@ -36,7 +27,7 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
     id: 'gulkhand-jam',
     name: 'Gulkhand Jam',
     category: 'jam',
-    image: gulkhandJamImg,
+    image: REAL_PRODUCT_IMAGES['gulkhand-jam'],
     price: 200,
     original_price: 245
   },
@@ -44,7 +35,7 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
     id: 'aavaram-jam',
     name: 'Aavaram Jam',
     category: 'jam',
-    image: aavaramJamImg,
+    image: REAL_PRODUCT_IMAGES['aavaram-jam'],
     price: 200,
     original_price: 245
   },
@@ -52,7 +43,7 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
     id: 'hibiscus-nectar',
     name: 'Hibiscus Nectar Spread',
     category: 'nectar-spread',
-    image: hibiscusNectarImg,
+    image: REAL_PRODUCT_IMAGES['hibiscus-nectar'],
     price: 350,
     original_price: 400
   },
@@ -60,7 +51,7 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
     id: 'rose-nectar',
     name: 'Rose Nectar Spread',
     category: 'nectar-spread',
-    image: roseNectarImg,
+    image: REAL_PRODUCT_IMAGES['rose-nectar'],
     price: 325,
     original_price: 375
   },
@@ -68,7 +59,7 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
     id: 'aavaram-thokku',
     name: 'Aavaram Chutney',
     category: 'thokku',
-    image: aavaramThokkuImg,
+    image: REAL_PRODUCT_IMAGES['aavaram-thokku'],
     price: 230,
     original_price: 270
   },
@@ -76,7 +67,7 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
     id: 'banana-thokku',
     name: 'Banana Chutney',
     category: 'thokku',
-    image: bananaThokkuImg,
+    image: REAL_PRODUCT_IMAGES['banana-thokku'],
     price: 230,
     original_price: 270
   },
@@ -84,7 +75,7 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
     id: 'cauliflower-thokku',
     name: 'Cauliflower Chutney',
     category: 'thokku',
-    image: cauliflowerThokkuImg,
+    image: REAL_PRODUCT_IMAGES['cauliflower-thokku'],
     price: 230,
     original_price: 270
   }
@@ -93,9 +84,9 @@ const DEFAULT_PRODUCTS: ProductDetail[] = [
 export default function ProductsPage({ selectedProductId, onNavigate }: ProductsPageProps) {
   const [activeCategories, setActiveCategories] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<string>('featured');
-
   const [products, setProducts] = useState<ProductDetail[]>(DEFAULT_PRODUCTS);
   const [isLoading, setIsLoading] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -119,13 +110,20 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
     fetchProducts();
   }, []);
 
-  const getImageUrl = (imagePath: string) => {
-    if (!imagePath) return '';
+  const getImageUrl = (imagePath: string, productId?: string) => {
+    if (!imagePath) {
+      if (productId && REAL_PRODUCT_IMAGES[productId]) return REAL_PRODUCT_IMAGES[productId];
+      return '';
+    }
     if (imagePath.startsWith('http') || imagePath.startsWith('/')) {
       return imagePath;
     }
-    const { data } = supabase.storage.from('Productimage').getPublicUrl(imagePath);
-    return data.publicUrl;
+    try {
+      const { data } = supabase.storage.from('Productimage').getPublicUrl(imagePath);
+      if (data?.publicUrl) return data.publicUrl;
+    } catch {}
+    if (productId && REAL_PRODUCT_IMAGES[productId]) return REAL_PRODUCT_IMAGES[productId];
+    return imagePath;
   };
 
   const getProductPrice = (product: ProductDetail) => {
@@ -135,47 +133,47 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
     
     const productName = product.name.toLowerCase();
     
-    // Specific hardcoded price for Rose Nectar Spread
     if (product.id === 'rose-nectar' || productName.includes('rose nectar')) {
       return { price: 325, original: 375 };
     }
-    
-    // Specific hardcoded price for Hibiscus Nectar Spread
     if (product.id === 'hibiscus-nectar' || productName.includes('hibiscus nectar')) {
       return { price: 350, original: 400 };
     }
-    
-    // Specific hardcoded price for Gulkhand Jam and Aavaram Jam
     if (product.id === 'gulkhand' || productName.includes('gulkhand') || product.id === 'aavaram-jam' || productName.includes('aavaram jam')) {
       return { price: 200, original: 245 };
     }
-    
-    // Specific hardcoded price for all Thokkus
-    if (product.category === 'thokku' || productName.includes('thokku')) {
+    if (product.category === 'thokku' || productName.includes('thokku') || productName.includes('chutney')) {
       return { price: 230, original: 270 };
     }
-    
-    // Fallback for others to maintain consistent UI, user can update later
     return { price: 299, original: 349 };
   };
 
-  const categoriesList = [
-    { id: 'jam', label: 'Floral Jam' },
-    { id: 'nectar-spread', label: 'Nectar Spread' },
-    { id: 'thokku', label: 'Floral Chutney' }
+  const categoryTabs = [
+    {
+      id: 'all',
+      label: 'Shop All',
+      image: heroJars,
+      isAll: true,
+    },
+    {
+      id: 'jam',
+      label: 'Floral Jam',
+      image: REAL_PRODUCT_IMAGES['gulkhand-jam'],
+      isAll: false,
+    },
+    {
+      id: 'nectar-spread',
+      label: 'Nectar Spread',
+      image: REAL_PRODUCT_IMAGES['rose-nectar'],
+      isAll: false,
+    },
+    {
+      id: 'thokku',
+      label: 'Floral Chutney',
+      image: REAL_PRODUCT_IMAGES['aavaram-thokku'],
+      isAll: false,
+    },
   ];
-
-  const toggleCategory = (catId: string) => {
-    setActiveCategories(prev => 
-      prev.includes(catId) 
-        ? prev.filter(c => c !== catId)
-        : [...prev, catId]
-    );
-  };
-
-  const filteredProducts = activeCategories.length === 0 
-    ? products 
-    : products.filter(p => activeCategories.includes(p.category));
 
   useEffect(() => {
     if (selectedProductId) {
@@ -215,6 +213,31 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
     }
   }, [selectedProductId, products]);
 
+  const filteredProducts = activeCategories.length === 0 
+    ? products 
+    : products.filter(p => activeCategories.includes(p.category));
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    const priceA = getProductPrice(a).price;
+    const priceB = getProductPrice(b).price;
+    if (sortBy === 'price-asc') return priceA - priceB;
+    if (sortBy === 'price-desc') return priceB - priceA;
+    if (sortBy === 'name-asc') return a.name.localeCompare(b.name);
+    return 0; // featured default
+  });
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="pt-20 bg-white min-h-screen">
       
@@ -228,44 +251,141 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
       </div>
 
       {/* Main E-commerce Layout */}
-      <section className="section pb-24 pt-12">
+      <section className="section pb-24 pt-8">
         <div className="container">
           <div className="flex flex-col">
 
-            {/* Category Filter Pills */}
-            <div className="flex justify-center items-center flex-wrap gap-3 mb-12">
-              <button
-                onClick={() => setActiveCategories([])}
-                className="px-6 py-2.5 rounded-full text-sm font-bold font-heading transition-all"
-                style={{
-                  backgroundColor: activeCategories.length === 0 ? '#FF8C00' : '#FFFFFF',
-                  color: activeCategories.length === 0 ? '#FFFFFF' : 'var(--earthy-brown)',
-                  border: activeCategories.length === 0 ? '2px solid #FF8C00' : '2px solid rgba(62, 39, 35, 0.15)',
-                  boxShadow: activeCategories.length === 0 ? '0 4px 12px rgba(255, 140, 0, 0.3)' : 'none',
-                  cursor: 'pointer'
-                }}
-              >
-                All Products
-              </button>
-              {categoriesList.map((cat) => {
-                const isActive = activeCategories.length === 1 && activeCategories[0] === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setActiveCategories([cat.id])}
-                    className="px-6 py-2.5 rounded-full text-sm font-bold font-heading transition-all"
-                    style={{
-                      backgroundColor: isActive ? '#FF8C00' : '#FFFFFF',
-                      color: isActive ? '#FFFFFF' : 'var(--earthy-brown)',
-                      border: isActive ? '2px solid #FF8C00' : '2px solid rgba(62, 39, 35, 0.15)',
-                      boxShadow: isActive ? '0 4px 12px rgba(255, 140, 0, 0.3)' : 'none',
-                      cursor: 'pointer'
-                    }}
+            {/* Breadcrumb & Top Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-4 mb-6 border-b border-earthy-brown/10">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-semibold text-earthy-light">
+                  Home <span className="mx-1">•</span> <strong className="text-earthy-brown font-bold">Shop All</strong>
+                </span>
+                <div 
+                  className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-earthy-brown/15 text-xs font-bold text-earthy-brown bg-white shadow-sm"
+                >
+                  <SlidersHorizontal size={14} className="text-hibiscus-red" />
+                  <span>FILTER</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 text-xs font-semibold text-earthy-light">
+                <span>{sortedProducts.length} products</span>
+                <span className="text-earthy-brown/20">•</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-bold text-earthy-brown uppercase tracking-wider text-[11px]">SORT BY:</span>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="bg-transparent font-bold text-earthy-brown text-xs outline-none cursor-pointer border-b border-dotted border-earthy-brown/40 pb-0.5 hover:text-hibiscus-red"
                   >
-                    {cat.label}
-                  </button>
-                );
-              })}
+                    <option value="featured">Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="name-asc">Name: A to Z</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Circular Category Navigation (Image 3 Reference Style) */}
+            <div className="relative w-full flex items-center justify-center mb-12 py-2">
+              <button 
+                onClick={scrollLeft}
+                aria-label="Scroll categories left"
+                className="hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-cream-dark/60 text-earthy-brown hover:bg-white hover:shadow-md transition-all mr-3 flex-shrink-0"
+                style={{ backgroundColor: 'rgba(62, 39, 35, 0.05)' }}
+              >
+                <ChevronLeft size={18} />
+              </button>
+
+              <div 
+                ref={scrollContainerRef}
+                className="flex items-center justify-start md:justify-center gap-8 md:gap-14 overflow-x-auto no-scrollbar py-2 px-2 scroll-smooth w-full max-w-4xl"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {categoryTabs.map((tab) => {
+                  const isActive = tab.isAll 
+                    ? activeCategories.length === 0 
+                    : (activeCategories.length === 1 && activeCategories[0] === tab.id);
+
+                  return (
+                    <div 
+                      key={tab.id}
+                      onClick={() => {
+                        if (tab.isAll) {
+                          setActiveCategories([]);
+                        } else {
+                          setActiveCategories([tab.id]);
+                        }
+                      }}
+                      className="flex flex-col items-center cursor-pointer group flex-shrink-0 select-none"
+                      style={{ minWidth: '85px', textAlign: 'center' }}
+                    >
+                      {/* Circle Thumbnail */}
+                      <div 
+                        className="transition-all duration-300 group-hover:scale-105"
+                        style={{
+                          width: '74px',
+                          height: '74px',
+                          borderRadius: '50%',
+                          backgroundColor: '#FAF7F0',
+                          border: isActive ? '2.5px solid #FF8C00' : '2px solid rgba(62, 39, 35, 0.08)',
+                          boxShadow: isActive ? '0 4px 16px rgba(255, 140, 0, 0.28)' : '0 2px 8px rgba(0,0,0,0.04)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          overflow: 'hidden',
+                          padding: tab.isAll ? '12px' : '6px',
+                          marginBottom: '8px'
+                        }}
+                      >
+                        <img 
+                          src={tab.image} 
+                          alt={tab.label}
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        />
+                      </div>
+
+                      {/* Category Label */}
+                      <span 
+                        style={{
+                          fontFamily: 'var(--font-heading)',
+                          fontSize: '0.88rem',
+                          fontWeight: isActive ? 800 : 600,
+                          color: isActive ? 'var(--earthy-brown)' : 'var(--earthy-light)',
+                          lineHeight: '1.2',
+                          transition: 'color 0.2s ease'
+                        }}
+                        className="group-hover:text-hibiscus-red"
+                      >
+                        {tab.label}
+                      </span>
+
+                      {/* Bold Orange Active Underline Indicator */}
+                      <div 
+                        style={{
+                          width: '32px',
+                          height: '3.5px',
+                          backgroundColor: isActive ? '#FF8C00' : 'transparent',
+                          borderRadius: '2px',
+                          marginTop: '6px',
+                          transition: 'all 0.25s ease'
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+
+              <button 
+                onClick={scrollRight}
+                aria-label="Scroll categories right"
+                className="hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-cream-dark/60 text-earthy-brown hover:bg-white hover:shadow-md transition-all ml-3 flex-shrink-0"
+                style={{ backgroundColor: 'rgba(62, 39, 35, 0.05)' }}
+              >
+                <ChevronRight size={18} />
+              </button>
             </div>
             
             {/* Product Grid */}
@@ -279,7 +399,7 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 md:gap-16">
                   <AnimatePresence mode="popLayout">
-                  {filteredProducts.map((product) => {
+                  {sortedProducts.map((product) => {
                     const { price, original } = getProductPrice(product);
                     
                     return (
@@ -308,12 +428,17 @@ export default function ProductsPage({ selectedProductId, onNavigate }: Products
                         }}
                       >
                         <div className="w-full flex flex-col items-center justify-center">
-                          {/* Floating Product Image (No Background Box) */}
-                          <div className="w-full relative flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-2" style={{ height: '240px', borderRadius: '16px', overflow: 'hidden' }}>
+                          {/* Floating Real Product Image */}
+                          <div className="w-full relative flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-2" style={{ height: '240px', borderRadius: '16px', overflow: 'hidden', backgroundColor: '#fff' }}>
                             <img 
-                              src={getImageUrl(product.image)} 
+                              src={getImageUrl(product.image, product.id)} 
                               alt={product.name} 
-                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                              onError={(e) => {
+                                if (REAL_PRODUCT_IMAGES[product.id]) {
+                                  (e.target as HTMLImageElement).src = REAL_PRODUCT_IMAGES[product.id];
+                                }
+                              }}
+                              style={{ width: '85%', height: '85%', objectFit: 'contain' }}
                             />
                           </div>
                           

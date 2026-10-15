@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion';
 import instaFamily from '../assets/insta_family.png';
-import roseNectar from '../assets/rose_nectar.png';
-import aavaramThokku from '../assets/aavaram_thokku.png';
-import gulkhandJam from '../assets/gulkhand_jam.png';
+import { CATEGORY_REAL_IMAGES } from '../data/productImages';
 
 interface CategoryItem {
   id: string; // Used to filter products on ProductsPage ('jam' | 'nectar-spread' | 'thokku')
@@ -20,21 +18,21 @@ const CATEGORIES: CategoryItem[] = [
   {
     id: 'jam',
     name: 'Floral Jam',
-    image: gulkhandJam,
+    image: CATEGORY_REAL_IMAGES.jam,
     tagline: 'Pure Handcrafted Petal Jams',
     subtitle: 'Explore Products →',
   },
   {
     id: 'nectar-spread',
     name: 'Nectar Spread',
-    image: roseNectar,
+    image: CATEGORY_REAL_IMAGES.nectarSpread,
     tagline: 'Natural Floral Drizzles',
     subtitle: 'Explore Products →',
   },
   {
     id: 'thokku',
     name: 'Floral Chutney',
-    image: aavaramThokku,
+    image: CATEGORY_REAL_IMAGES.floralChutney,
     tagline: 'Authentic Savory Chutneys',
     subtitle: 'Explore Products →',
   },
@@ -46,7 +44,7 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
       {/* Title */}
       <div className="container" style={{ textAlign: 'center', marginBottom: '36px' }}>
         <h2 className="font-heading font-extrabold" style={{ fontSize: '2.5rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--earthy-brown)' }}>
-          Our Products
+          Our Category
         </h2>
         <p style={{ color: 'var(--earthy-light, #666)', fontSize: '1rem', marginTop: '8px' }}>
           Pure, naturally crafted floral spreads & traditional condiments
@@ -86,11 +84,11 @@ export default function RecipesSection({ onNavigate }: RecipesSectionProps) {
                   /* Orange gingham pattern */
                   backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(255, 140, 0, 0.15) 10px, rgba(255, 140, 0, 0.15) 20px), repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(255, 140, 0, 0.15) 10px, rgba(255, 140, 0, 0.15) 20px)'
                 }}>
-                  <div style={{ width: '190px', height: '190px', borderRadius: '50%', border: '8px solid #fff', overflow: 'hidden', boxShadow: '0 6px 16px rgba(0,0,0,0.12)', transition: 'transform 0.3s ease', backgroundColor: '#fff' }}>
+                  <div style={{ width: '190px', height: '190px', borderRadius: '50%', border: '8px solid #fff', overflow: 'hidden', boxShadow: '0 6px 16px rgba(0,0,0,0.12)', transition: 'transform 0.3s ease', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <img 
                       src={category.image} 
                       alt={category.name} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                      style={{ width: '90%', height: '90%', objectFit: 'contain' }} 
                       className="group-hover:scale-110 transition-transform duration-300"
                     />
                   </div>

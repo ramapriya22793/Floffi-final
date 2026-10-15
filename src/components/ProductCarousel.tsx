@@ -2,14 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ShoppingBag } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-
-import gulkhandJamImg from '../assets/gulkhand_jam.png';
-import aavaramJamImg from '../assets/aavaram_jam.png';
-import hibiscusNectarImg from '../assets/hibiscus_nectar.png';
-import roseNectarImg from '../assets/rose_nectar.png';
-import aavaramThokkuImg from '../assets/aavaram_thokku.png';
-import bananaThokkuImg from '../assets/banana_thokku.png';
-import cauliflowerThokkuImg from '../assets/cauliflower_thokku.png';
+import { REAL_PRODUCT_IMAGES } from '../data/productImages';
 
 interface Product {
   id: string;
@@ -25,13 +18,13 @@ interface ProductCarouselProps {
 }
 
 const DEFAULT_CAROUSEL_PRODUCTS: Product[] = [
-  { id: 'gulkhand-jam', name: 'Gulkhand Jam', category: 'jam', image: gulkhandJamImg, price: 200, original_price: 245 },
-  { id: 'aavaram-jam', name: 'Aavaram Jam', category: 'jam', image: aavaramJamImg, price: 200, original_price: 245 },
-  { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', category: 'nectar-spread', image: hibiscusNectarImg, price: 350, original_price: 400 },
-  { id: 'rose-nectar', name: 'Rose Nectar Spread', category: 'nectar-spread', image: roseNectarImg, price: 325, original_price: 375 },
-  { id: 'aavaram-thokku', name: 'Aavaram Chutney', category: 'thokku', image: aavaramThokkuImg, price: 230, original_price: 270 },
-  { id: 'banana-thokku', name: 'Banana Chutney', category: 'thokku', image: bananaThokkuImg, price: 230, original_price: 270 },
-  { id: 'cauliflower-thokku', name: 'Cauliflower Chutney', category: 'thokku', image: cauliflowerThokkuImg, price: 230, original_price: 270 }
+  { id: 'gulkhand-jam', name: 'Gulkhand Jam', category: 'jam', image: REAL_PRODUCT_IMAGES['gulkhand-jam'], price: 200, original_price: 245 },
+  { id: 'aavaram-jam', name: 'Aavaram Jam', category: 'jam', image: REAL_PRODUCT_IMAGES['aavaram-jam'], price: 200, original_price: 245 },
+  { id: 'hibiscus-nectar', name: 'Hibiscus Nectar Spread', category: 'nectar-spread', image: REAL_PRODUCT_IMAGES['hibiscus-nectar'], price: 350, original_price: 400 },
+  { id: 'rose-nectar', name: 'Rose Nectar Spread', category: 'nectar-spread', image: REAL_PRODUCT_IMAGES['rose-nectar'], price: 325, original_price: 375 },
+  { id: 'aavaram-thokku', name: 'Aavaram Chutney', category: 'thokku', image: REAL_PRODUCT_IMAGES['aavaram-thokku'], price: 230, original_price: 270 },
+  { id: 'banana-thokku', name: 'Banana Chutney', category: 'thokku', image: REAL_PRODUCT_IMAGES['banana-thokku'], price: 230, original_price: 270 },
+  { id: 'cauliflower-thokku', name: 'Cauliflower Chutney', category: 'thokku', image: REAL_PRODUCT_IMAGES['cauliflower-thokku'], price: 230, original_price: 270 }
 ];
 
 const buildDisplayList = (items: Product[]) => {
@@ -321,7 +314,9 @@ export default function ProductCarousel({ onNavigate }: ProductCarouselProps) {
                   alt={product.name}
                   className="pc-img"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x400?text=Product';
+                    if (REAL_PRODUCT_IMAGES[product.id]) {
+                      (e.target as HTMLImageElement).src = REAL_PRODUCT_IMAGES[product.id];
+                    }
                   }}
                 />
               </div>
