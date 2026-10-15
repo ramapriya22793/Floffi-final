@@ -150,7 +150,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 </AnimatePresence>
               </div>
 
-              {/* Featured Products Link */}
+              {/* Category Link */}
               <button
                 onClick={() => {
                   if (currentPage !== 'home') {
@@ -164,7 +164,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 }}
                 className={`nav-link`}
               >
-                FEATURED
+                CATEGORY
               </button>
 
               {/* Enquiry Link */}
@@ -366,7 +366,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   </AnimatePresence>
                 </div>
 
-                {/* Featured Products Link */}
+                {/* Category Link */}
                 <button
                   onClick={() => {
                     setIsOpen(false);
@@ -382,7 +382,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   className={`nav-link text-base flex justify-start w-full py-1`}
                   style={{ textAlign: 'left' }}
                 >
-                  <span>OUR PRODUCTS</span>
+                  <span>CATEGORY</span>
                 </button>
 
                 {/* Enquiry Link */}
